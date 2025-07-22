@@ -26,10 +26,10 @@ export const packages = [
             "4+4": 5.4
         },
         bulkPricing: [
-            { minQty: 1, priceMultiplier: 1 },
-            { minQty: 100, priceMultiplier: 0.95 },
+            { minQty: 100, priceMultiplier: 1 },
             { minQty: 500, priceMultiplier: 0.9 },
-            { minQty: 1000, priceMultiplier: 0.85 }
+            { minQty: 1000, priceMultiplier: 0.85 },
+            { minQty: 5000, priceMultiplier: 0.8 }
         ]
     },
     {
@@ -59,10 +59,10 @@ export const packages = [
             "4+4": 6.5
         },
         bulkPricing: [
-            { minQty: 1, priceMultiplier: 1 },
-            { minQty: 100, priceMultiplier: 0.95 },
+            { minQty: 100, priceMultiplier: 1 },
             { minQty: 500, priceMultiplier: 0.9 },
-            { minQty: 1000, priceMultiplier: 0.85 }
+            { minQty: 1000, priceMultiplier: 0.85 },
+            { minQty: 5000, priceMultiplier: 0.8 }
         ]
     },
     {
@@ -92,10 +92,10 @@ export const packages = [
             "4x4": 7.3
         },
         bulkPricing: [
-            { minQty: 1, priceMultiplier: 1 },
-            { minQty: 100, priceMultiplier: 0.95 },
+            { minQty: 100, priceMultiplier: 1 },
             { minQty: 500, priceMultiplier: 0.9 },
-            { minQty: 1000, priceMultiplier: 0.85 }
+            { minQty: 1000, priceMultiplier: 0.85 },
+            { minQty: 5000, priceMultiplier: 0.8 }
         ]
     }
 ]
