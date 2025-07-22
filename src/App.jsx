@@ -1,0 +1,26 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import Catalog from "./pages/Catalog"
+import Category from "./pages/Category"
+import Package from "./pages/Package"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <main className="min-h-screen px-4 py-6">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog/:category" element={<Category />} />
+          <Route path="/package/:id" element={<Package />} />
+        </Routes>
+      </main>
+      <Footer />
+    </Router>
+  )
+}
+
+export default App
