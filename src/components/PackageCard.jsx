@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export default function PackageCard({ pack }) {
   return (
     <Link
-      to={`/package/${pack.id}`}
+      to={`/package/${pack._id}`}
       className="block bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden"
     >
       <div className="w-full aspect-[4/3]">

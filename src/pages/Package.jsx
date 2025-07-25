@@ -1,34 +1,45 @@
 import { useParams } from "react-router-dom"
 import { useState } from "react"
-import { packages } from "../data/mockPackages"
+import { usePackages } from "../data/usePackages"
+
 
 export default function Package() {
     const { id } = useParams()
-    const pack = packages.find(p => p.id === id)
+    const { packages, loading } = usePackages();
     const [selectedOption, setSelectedOption] = useState("")
     const [quantity, setQuantity] = useState(1)
+
+    if (loading) return <div className="text-center mt-10 text-xl">Завантаження...</div>;
+
+    const pack = packages.find(p => p._id === id)
 
     if (!pack) return <div className="text-center mt-10 text-xl">Пакет не знайдено</div>
 
     // Определяем цену за одну единицу с учётом оптовой скидки
     const getUnitPrice = () => {
-        const base = pack.basePrice
-        const printCost = selectedOption ? pack.printOptions[selectedOption] || 0 : 0
-        const fullBase = base + printCost
+        const base = pack.basePrice;
+
+        let printCost = 0;
+        if (selectedOption) {
+            const selectedPrint = pack.printOptions.find(p => p.code === selectedOption);
+            printCost = selectedPrint ? selectedPrint.price : 0;
+        }
+
+        const fullBase = base + printCost;
 
         // Ищем подходящий множитель по количеству
         const bulkLevel = [...pack.bulkPricing]
             .reverse()
-            .find(tier => quantity >= tier.minQty)
+            .find(tier => quantity >= tier.minQty);
 
-        return fullBase * (bulkLevel?.priceMultiplier || 1)
-    }
+        return fullBase * (bulkLevel?.priceMultiplier || 1);
+    };
 
     const totalPrice = (getUnitPrice() * quantity).toFixed(2)
 
 
     // РАСКОМЕНТИТЬ КОГДА БУДЕТ ГОТОВО НА СТОРОНЕ СЕРВЕРА
-    
+
     // Получить пакет с печатью 2x2 и 500 штук 
     // const getFinalPrice = (product, printCode, quantity) => {
     //     const print = product.printOptions.find(p => p.code === printCode)?.price || product.basePrice;
@@ -59,25 +70,26 @@ export default function Package() {
                     <button
                         onClick={() => setSelectedOption("")}
                         className={`px-4 py-2 rounded border ${selectedOption === ""
-                                ? "bg-blue-600 text-white border-blue-600"
-                                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
+                            ? "bg-blue-600 text-white border-blue-600"
+                            : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
                             }`}
                     >
                         Без друку
                     </button>
 
-                    {Object.entries(pack.printOptions).map(([option, optPrice]) => (
-                        <button
-                            key={option}
-                            onClick={() => setSelectedOption(option)}
-                            className={`px-4 py-2 rounded border transition-all duration-200 ${selectedOption === option
+                    {Array.isArray(pack.printOptions) &&
+                        pack.printOptions.map(({ code, price }) => (
+                            <button
+                                key={code}
+                                onClick={() => setSelectedOption(code)}
+                                className={`px-4 py-2 rounded border transition-all duration-200 ${selectedOption === code
                                     ? "bg-blue-600 text-white border-blue-600"
                                     : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-                                }`}
-                        >
-                            {option}
-                        </button>
-                    ))}
+                                    }`}
+                            >
+                                {code}
+                            </button>
+                        ))}
                 </div>
             </div>
 
@@ -88,11 +100,19 @@ export default function Package() {
                 <input
                     type="number"
                     value={quantity}
-                    onChange={e => setQuantity(Math.max(1, Number(e.target.value)))}
+                    onChange={e => setQuantity(e.target.value)} // просто записываем то, что ввёл пользователь
+                    onBlur={() => {
+                        const val = Number(quantity);
+                        if (isNaN(val) || val < 100) {
+                            setQuantity(100);
+                        } else {
+                            setQuantity(val); // нормализуем, вдруг человек ввёл "100.00" и т.п.
+                        }
+                    }}
                     className="w-32 px-3 py-2 border border-gray-300 rounded shadow-sm"
-                    min={1}
                 />
             </div>
+
 
             <div className="mt-6 text-xl font-bold text-blue-700">
                 Ціна за штуку: {getUnitPrice().toFixed(2)} грн

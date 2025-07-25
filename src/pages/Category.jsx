@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
-import { packages } from '../data/mockPackages'
+import { usePackages } from '../data/usePackages'
 import PackageCard from '../components/PackageCard'
 
 export default function Category() {
   const { category } = useParams()
-  const filtered = packages.filter(p => p.category === category)
+  const filtered = usePackages.filter(p => p.category === category)
 
   return (
     <div>

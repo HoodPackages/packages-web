@@ -1,7 +1,11 @@
-import { packages } from "../data/mockPackages"
-import PackageCard from "../components/PackageCard"
+import { usePackages } from "../data/usePackages";
+import PackageCard from "../components/PackageCard";
 
 export default function Catalog() {
+  const { packages, loading } = usePackages();
+
+  if (loading) return <div>Завантаження...</div>;
+
   return (
     <section className="bg-gradient-to-b from-white to-blue-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
@@ -18,7 +22,7 @@ export default function Catalog() {
         {/* Сетка карточек */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {packages.map(pack => (
-            <PackageCard key={pack.id} pack={pack} />
+            <PackageCard key={pack._id} pack={pack} />
           ))}
         </div>
       </div>
