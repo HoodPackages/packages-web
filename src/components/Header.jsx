@@ -14,7 +14,7 @@ export default function Header() {
               to="/"
               className="text-xl font-bold text-gray-800 hover:text-blue-600 transition"
             >
-              Пакеты
+              Пакети
             </Link>
           </div>
 
@@ -28,7 +28,7 @@ export default function Header() {
                 }`
               }
             >
-              Главная
+              Головна
             </NavLink>
             <NavLink
               to="/catalog"

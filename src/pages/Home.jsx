@@ -10,23 +10,23 @@ export default function Home() {
         <div className="flex justify-center items-center gap-2 mb-4">
           <Sparkles className="text-blue-600 w-8 h-8" />
           <span className="uppercase tracking-wide text-blue-600 font-semibold text-sm">
-            Онлайн Платформа Пакетов
+            Онлайн-магазин пакетів
           </span>
         </div>
 
         <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-800 leading-tight mb-6">
-          Найдите идеальный <span className="text-blue-600">пакет</span> для себя
+          Оберіть ідеальний <span className="text-blue-600">пакет</span> для свого бізнесу
         </h1>
 
         <p className="text-lg text-gray-600 mb-8">
-          Быстрый интернет, HD телевидение и комплексные предложения — всё в одном месте.
+          Рекламні, фірмові або крафтові пакети — замовляйте якісну продукцію з урахуванням усіх потреб.
         </p>
 
         <Link
           to="/catalog"
           className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-xl shadow-md transition duration-300"
         >
-          Перейти в каталог
+          Перейти до каталогу
         </Link>
       </div>
     </div>
