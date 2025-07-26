@@ -7,7 +7,7 @@ export default function Package() {
     const { id } = useParams()
     const { packages, loading } = usePackages();
     const [selectedOption, setSelectedOption] = useState("")
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(100)
 
     if (loading) return <div className="text-center mt-10 text-xl">Завантаження...</div>;
 
