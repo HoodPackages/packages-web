@@ -20,7 +20,7 @@ export default function PackageCard({ pack }) {
 
         <div className="mt-3 text-right">
           <span className="inline-block bg-blue-100 text-blue-700 font-bold text-sm px-3 py-1 rounded-full">
-            от {pack.basePrice} грн
+            від {pack.basePrice} грн
           </span>
         </div>
       </div>

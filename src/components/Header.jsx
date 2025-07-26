@@ -14,7 +14,7 @@ export default function Header() {
               to="/"
               className="text-xl font-bold text-gray-800 hover:text-blue-600 transition"
             >
-              Пакети
+              ПакетOFF Net
             </Link>
           </div>
 
