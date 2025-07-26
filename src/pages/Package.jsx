@@ -109,7 +109,7 @@ export default function Package() {
                             setQuantity(val); // нормализуем, вдруг человек ввёл "100.00" и т.п.
                         }
                     }}
-                    className="w-32 px-3 py-2 border border-gray-300 rounded shadow-sm" />
+                    className="w-32 px-3 py-2 border border-gray-300 rounded shadow-sm appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]" />
             </div>
 
 
