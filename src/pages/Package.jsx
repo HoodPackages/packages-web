@@ -25,14 +25,16 @@ export default function Package() {
         return level.price;
     }
 
-    // Вычисление финальной цены за единицу (с учётом печати)
     const getUnitPrice = () => {
         const basePrice = getBaseUnitPrice();
 
         let printPrice = 0;
-        if (selectedOption) {
-            const selectedPrint = pack.printOptions?.find(p => p.code === selectedOption);
-            printPrice = selectedPrint?.price || 0;
+        if (selectedOption && Array.isArray(pack.printOptions)) {
+            const filtered = pack.printOptions.filter(p => p.code === selectedOption);
+            const sorted = filtered.sort((a, b) => b.quantity - a.quantity);
+            const matching = sorted.find(p => quantity >= p.quantity) || sorted[sorted.length - 1];
+
+            printPrice = matching?.price || 0;
         }
 
         return basePrice + printPrice;
@@ -65,19 +67,18 @@ export default function Package() {
                         Без друку
                     </button>
 
-                    {Array.isArray(pack.printOptions) &&
-                        pack.printOptions.map(({ code }) => (
-                            <button
-                                key={code}
-                                onClick={() => setSelectedOption(code)}
-                                className={`px-4 py-2 rounded border transition-all duration-200 ${selectedOption === code
+                    {[...new Set(pack.printOptions.map(p => p.code))].map(code => (
+                        <button
+                            key={code}
+                            onClick={() => setSelectedOption(code)}
+                            className={`px-4 py-2 rounded border transition-all duration-200 ${selectedOption === code
                                     ? "bg-blue-600 text-white border-blue-600"
                                     : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-                                    }`}
-                            >
-                                {code}
-                            </button>
-                        ))}
+                                }`}
+                        >
+                            {code}
+                        </button>
+                    ))}
                 </div>
             </div>
 
