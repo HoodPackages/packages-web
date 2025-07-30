@@ -7,13 +7,13 @@ export default function Catalog() {
   const [selectedType, setSelectedType] = useState("Всі");
 
   const types = useMemo(() => {
-    const allTypes = packages.map(p => p.type).filter(Boolean);
+    const allTypes = packages.map(p => p.category).filter(Boolean);
     return ["Всі", ...Array.from(new Set(allTypes))];
   }, [packages]);
 
   const filteredPackages = useMemo(() => {
     if (selectedType === "Всі") return packages;
-    return packages.filter(p => p.type === selectedType);
+    return packages.filter(p => p.category === selectedType);
   }, [packages, selectedType]);
 
   if (loading) return <div>Завантаження...</div>;
@@ -27,17 +27,17 @@ export default function Catalog() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {types.map((type) => (
+          {types.map((category) => (
             <button
-              key={type}
-              onClick={() => setSelectedType(type)}
+              key={category}
+              onClick={() => setSelectedType(category)}
               className={`px-4 py-2 rounded-full border transition ${
-                selectedType === type
+                selectedType === category
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-white text-blue-600 border-blue-300 hover:bg-blue-50"
               }`}
             >
-              {type}
+              {category}
             </button>
           ))}
         </div>
