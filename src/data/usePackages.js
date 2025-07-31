@@ -6,7 +6,7 @@ export const usePackages = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    axios.get('http://localhost:5001/api/products')
       .then(res => {
         setPackages(res.data);
         console.log(res.data)
