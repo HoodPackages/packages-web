@@ -1,8 +1,8 @@
 'use client'
 import { useState, useMemo } from "react";
 import { usePackages } from "../data/usePackages";
-import { Dialog, DialogBackdrop, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import ProductCard from './ProductCard'
 
 const sortOptions = [
@@ -60,7 +60,6 @@ function classNames(...classes) {
 }
 
 export default function CategoryFilter() {
-    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const { packages, loading } = usePackages();
 
     const [currentSort, setCurrentSort] = useState(sortOptions[0].name);
@@ -157,19 +156,6 @@ export default function CategoryFilter() {
                                 </div>
                             </MenuItems>
                         </Menu>
-
-                        <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                            <span className="sr-only">View grid</span>
-                            <Squares2X2Icon aria-hidden="true" className="size-5" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setMobileFiltersOpen(true)}
-                            className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                        >
-                            <span className="sr-only">Filters</span>
-                            <FunnelIcon aria-hidden="true" className="size-5" />
-                        </button>
                     </div>
                 </div>
 
