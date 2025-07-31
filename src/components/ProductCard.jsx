@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
 import { usePackages } from "../data/usePackages";
-import PackageCard from "../components/PackageCard";
+import PackageCard from "./PackageCard";
 
-export default function ProductCart() {
-    const { packages, loading } = usePackages();
+export default function ProductCard({ packages }) {
+    const { loading } = usePackages();
     const [selectedType, setSelectedType] = useState("Всі");
 
     const types = useMemo(() => {

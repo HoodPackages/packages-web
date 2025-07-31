@@ -1,27 +1,9 @@
 'use client'
 import { useState, useMemo } from "react";
 import { usePackages } from "../data/usePackages";
-import {
-    Dialog,
-    DialogBackdrop,
-    DialogPanel,
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
-} from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import {
-    ChevronDownIcon,
-    FunnelIcon,
-    MinusIcon,
-    PlusIcon,
-    Squares2X2Icon,
-} from '@heroicons/react/20/solid'
-import ProductCart from './ProductCart'
+import { Dialog, DialogBackdrop, DialogPanel, Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import ProductCard from './ProductCard'
 
 const sortOptions = [
     { name: 'Most Popular', href: '#', current: true },
@@ -30,46 +12,50 @@ const sortOptions = [
     { name: 'Price: Low to High', href: '#', current: false },
     { name: 'Price: High to Low', href: '#', current: false },
 ]
-const subCategories = [
-    { name: 'Totes', href: '#' },
-    { name: 'Backpacks', href: '#' },
-    { name: 'Travel Bags', href: '#' },
-    { name: 'Hip Bags', href: '#' },
-    { name: 'Laptop Sleeves', href: '#' },
-]
-const filters = [{
-    id: 'size',
-    name: 'Розмір',
-    options: [
-        { value: '2l', label: '2L', checked: false },
-        { value: '6l', label: '6L', checked: false },
-        { value: '12l', label: '12L', checked: false },
-        { value: '18l', label: '18L', checked: false },
-        { value: '20l', label: '20L', checked: false },
-        { value: '40l', label: '40L', checked: true },
-    ],
-},
-{
-    id: 'color',
-    name: 'Колір',
-    options: [
-        { value: 'Білий', label: 'White', checked: false },
-        { value: 'Чорний', label: 'Black', checked: false },
-        { value: 'Розовий', label: 'Pink', checked: true },
-    ],
-},
-{
-    id: 'category',
-    name: 'Category',
-    options: [
-        { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-        { value: 'sale', label: 'Sale', checked: false },
-        { value: 'travel', label: 'Travel', checked: true },
-        { value: 'organization', label: 'Organization', checked: false },
-        { value: 'accessories', label: 'Accessories', checked: false },
-    ],
-},
-]
+
+const generateFiltersFromPackages = (packages) => {
+    const sizes = new Set();
+    const colors = new Set();
+    const categories = new Set();
+
+    packages.forEach((pkg) => {
+        if (pkg.size) sizes.add(pkg.size);
+        if (pkg.color) colors.add(pkg.color);
+        if (pkg.category) categories.add(pkg.category);
+    });
+
+    return [
+        {
+            id: 'category',
+            name: 'Категорія',
+            options: Array.from(categories).map((cat) => ({
+                value: cat,
+                label: cat,
+                checked: false,
+            })),
+        },
+        {
+            id: 'size',
+            name: 'Розмір',
+            options: Array.from(sizes).map((size) => ({
+                value: size,
+                label: size,
+                checked: false,
+            })),
+        },
+        {
+            id: 'color',
+            name: 'Колір',
+            options: Array.from(colors).map((color) => ({
+                value: color,
+                label: color,
+                checked: false,
+            })),
+        },
+    ];
+};
+
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -81,15 +67,42 @@ export default function CategoryFilter() {
     const { packages, loading } = usePackages();
     const [selectedType, setSelectedType] = useState("Всі");
 
+    const filters = useMemo(() => generateFiltersFromPackages(packages), [packages]);
+
     const types = useMemo(() => {
         const allTypes = packages.map(p => p.category).filter(Boolean);
         return ["Всі", ...Array.from(new Set(allTypes))];
     }, [packages]);
 
+    const [selectedFilters, setSelectedFilters] = useState({
+        size: [],
+        color: [],
+        category: [],
+    });
+
+    const handleFilterChange = (filterId, value) => {
+        setSelectedFilters((prev) => {
+            const currentValues = prev[filterId];
+            const newValues = currentValues.includes(value)
+                ? currentValues.filter((v) => v !== value)
+                : [...currentValues, value];
+
+            return {
+                ...prev,
+                [filterId]: newValues,
+            };
+        });
+    };
+
     const filteredPackages = useMemo(() => {
-        if (selectedType === "Всі") return packages;
-        return packages.filter(p => p.category === selectedType);
-    }, [packages, selectedType]);
+        return packages.filter((pkg) => {
+            const sizeMatch = selectedFilters.size.length === 0 || selectedFilters.size.includes(pkg.size);
+            const colorMatch = selectedFilters.color.length === 0 || selectedFilters.color.includes(pkg.color);
+            const categoryMatch = selectedFilters.category.length === 0 || selectedFilters.category.includes(pkg.category);
+
+            return sizeMatch && colorMatch && categoryMatch;
+        });
+    }, [packages, selectedFilters]);
 
     return (
         <div className="bg-white">
@@ -145,17 +158,7 @@ export default function CategoryFilter() {
                     <h2 id="products-heading" className="sr-only">Products</h2>
 
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                        {/* Filters */}
                         <form className="hidden lg:block lg:col-span-1">
-                            <h3 className="sr-only">Categories</h3>
-                            <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                {types.map((category) => (
-                                    <li key={category}>
-                                        <a href={category}>{category}</a>
-                                    </li>
-                                ))}
-                            </ul>
-
                             {filters.map((section) => (
                                 <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">
                                     <h3 className="-my-3 flow-root">
@@ -169,11 +172,12 @@ export default function CategoryFilter() {
                                     </h3>
                                     <DisclosurePanel className="pt-6">
                                         <div className="space-y-4">
-                                            {section.options.map((option, optionIdx) => (
+                                            {section.options.map((option) => (
                                                 <div key={option.value} className="flex gap-3">
                                                     <input
                                                         type="checkbox"
-                                                        defaultChecked={option.checked}
+                                                        checked={selectedFilters[section.id].includes(option.value)}
+                                                        onChange={() => handleFilterChange(section.id, option.value)}
                                                         className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                                                     />
                                                     <label className="text-sm text-gray-600">{option.label}</label>
@@ -183,12 +187,13 @@ export default function CategoryFilter() {
                                     </DisclosurePanel>
                                 </Disclosure>
                             ))}
+
                         </form>
 
 
                         <div className="lg:col-span-3">
                             <div className="">
-                                <ProductCart />
+                                <ProductCard packages={filteredPackages} />
                             </div>
                         </div>
                     </div>
