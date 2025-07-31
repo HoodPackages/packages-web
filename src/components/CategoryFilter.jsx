@@ -6,11 +6,10 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import ProductCard from './ProductCard'
 
 const sortOptions = [
-    { name: 'Most Popular', href: '#', current: true },
-    { name: 'Best Rating', href: '#', current: false },
-    { name: 'Newest', href: '#', current: false },
-    { name: 'Price: Low to High', href: '#', current: false },
-    { name: 'Price: High to Low', href: '#', current: false },
+    { name: 'За замовчуванням', current: true },
+    { name: 'Найновіші', current: false },
+    { name: 'Від дешевших до дорожчих', current: false },
+    { name: 'Від дорожчих до дешевших', current: false },
 ]
 
 const generateFiltersFromPackages = (packages) => {
@@ -56,23 +55,40 @@ const generateFiltersFromPackages = (packages) => {
 };
 
 
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function CategoryFilter() {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-
     const { packages, loading } = usePackages();
-    const [selectedType, setSelectedType] = useState("Всі");
+
+    const [currentSort, setCurrentSort] = useState(sortOptions[0].name);
+
+    const sortPackages = (packagesList) => {
+        switch (currentSort) {
+            case 'Найновіші':
+                return [...packagesList].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            case 'Від дешевших до дорожчих':
+                return [...packagesList].sort((a, b) => {
+                    const aMinPrice = Math.min(...a.price.map(p => p.price));
+                    const bMinPrice = Math.min(...b.price.map(p => p.price));
+                    return aMinPrice - bMinPrice;
+                });
+
+            case 'Від дорожчих до дешевших':
+                return [...packagesList].sort((a, b) => {
+                    const aMaxPrice = Math.max(...a.price.map(p => p.price));
+                    const bMaxPrice = Math.max(...b.price.map(p => p.price));
+                    return bMaxPrice - aMaxPrice;
+                });
+            case 'За замовчуванням':
+            default:
+                return packagesList;
+        }
+    };
 
     const filters = useMemo(() => generateFiltersFromPackages(packages), [packages]);
-
-    const types = useMemo(() => {
-        const allTypes = packages.map(p => p.category).filter(Boolean);
-        return ["Всі", ...Array.from(new Set(allTypes))];
-    }, [packages]);
 
     const [selectedFilters, setSelectedFilters] = useState({
         size: [],
@@ -94,22 +110,22 @@ export default function CategoryFilter() {
         });
     };
 
-    const filteredPackages = useMemo(() => {
-        return packages.filter((pkg) => {
+    const filteredAndSortedPackages = useMemo(() => {
+        const filtered = packages.filter((pkg) => {
             const sizeMatch = selectedFilters.size.length === 0 || selectedFilters.size.includes(pkg.size);
             const colorMatch = selectedFilters.color.length === 0 || selectedFilters.color.includes(pkg.color);
             const categoryMatch = selectedFilters.category.length === 0 || selectedFilters.category.includes(pkg.category);
-
             return sizeMatch && colorMatch && categoryMatch;
         });
-    }, [packages, selectedFilters]);
+
+        return sortPackages(filtered);
+    }, [packages, selectedFilters, currentSort]);
 
     return (
         <div className="bg-white">
             <main className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 pl-10 pr-10">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900">Пакети</h1>
-
                     <div className="flex items-center">
                         <Menu as="div" className="relative inline-block text-left">
                             <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -124,15 +140,18 @@ export default function CategoryFilter() {
                                 <div className="py-1">
                                     {sortOptions.map((option) => (
                                         <MenuItem key={option.name}>
-                                            <a
-                                                href={option.href}
-                                                className={classNames(
-                                                    option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                    'block px-4 py-2 text-sm hover:bg-gray-100'
-                                                )}
-                                            >
-                                                {option.name}
-                                            </a>
+                                            {({ active }) => (
+                                                <p
+                                                    onClick={() => setCurrentSort(option.name)}
+                                                    className={classNames(
+                                                        option.name === currentSort ? 'font-medium text-gray-900' : 'text-gray-500',
+                                                        active ? 'bg-gray-100' : '',
+                                                        'block px-4 py-2 text-sm cursor-pointer'
+                                                    )}
+                                                >
+                                                    {option.name}
+                                                </p>
+                                            )}
                                         </MenuItem>
                                     ))}
                                 </div>
@@ -155,7 +174,7 @@ export default function CategoryFilter() {
                 </div>
 
                 <section aria-labelledby="products-heading" className="pt-6 pb-24">
-                    <h2 id="products-heading" className="sr-only">Products</h2>
+                    <h2 id="products-heading" className="sr-only">Сортування</h2>
 
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         <form className="hidden lg:block lg:col-span-1">
@@ -187,13 +206,11 @@ export default function CategoryFilter() {
                                     </DisclosurePanel>
                                 </Disclosure>
                             ))}
-
                         </form>
-
 
                         <div className="lg:col-span-3">
                             <div className="">
-                                <ProductCard packages={filteredPackages} />
+                                <ProductCard packages={filteredAndSortedPackages} />
                             </div>
                         </div>
                     </div>
