@@ -160,8 +160,6 @@ export default function CategoryFilter() {
                 </div>
 
                 <section aria-labelledby="products-heading" className="pt-6 pb-24">
-                    <h2 id="products-heading" className="">Хуй очкарик пирожок<p>Под залупой творожок</p></h2>
-
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         <form className="hidden lg:block lg:col-span-1">
                             {filters.map((section) => (
