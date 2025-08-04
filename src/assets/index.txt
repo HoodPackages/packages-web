@@ -1,1 +1,7 @@
 https://componentland.com/component/product-card-hover-image-reveal-1 - Карточки товаров 
+HomepageCardTovar https://preline.co/examples/hero-sections.html
+https://prebuiltui.com/component - компоненты tailwind 
+Login form - https://prebuiltui.com/component/login-form
+
+
+
