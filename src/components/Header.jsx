@@ -1,124 +1,275 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { PackageSearch } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+
+const dropdownNavs = [
+  {
+    label: "Пакети", navs: [
+      {
+        title: "Банан",
+        desc: "Пакети банан з логотипом",
+        path: "/catalog",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" />
+      },
+      {
+        title: "Майка",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Петля",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Поліпропілен",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "ПВХ",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+    ]
+  }, {
+    label: "", navs: [
+      {
+        title: "Крафт",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Бумажні",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Коробки",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Zip",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Дой-пак",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+    ]
+  }, {
+    label: "Інший друк", navs: [
+      {
+        title: "Футболки",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Еко-сумки",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "Чашки",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+      {
+        title: "DTF-друк",
+        desc: "Duis aute irure dolor in reprehenderit",
+        path: "javascript:void(0)",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+          <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
+        </svg>
+      },
+    ]
+  }
+]
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [state, setState] = useState(false)
+  const [drapdownState, setDrapdownState] = useState({ isActive: false, idx: null })
+
+  const navigation = [
+    { title: "Каталог", path: "javascript:void(0)", isDrapdown: true, navs: dropdownNavs },
+    { title: "Контакти", to: "/catalog", isDrapdown: false },
+    { title: "Про нас", path: "javascript:void(0)", isDrapdown: false },
+    { title: "Оплата", path: "javascript:void(0)", isDrapdown: false },
+    { title: "Кольори Pantone", path: "javascript:void(0)", isDrapdown: false }
+  ]
+
+  useEffect(() => {
+    document.onclick = (e) => {
+      const target = e.target;
+      if (!target.closest(".nav-menu")) setDrapdownState({ isActive: false, idx: null });
+    };
+  }, [])
 
   return (
-    <header className="mt-5 flex items-center justify-between px-6 py-3 md:py-4 shadow max-w-7xl rounded-full mx-auto w-full bg-white sticky top-0 z-50">
-      {/* Логотип */}
-      <div className="flex items-center space-x-2">
-        <PackageSearch className="text-blue-600 w-6 h-6" />
-        <Link
-          to="/"
-          className="text-xl font-bold text-gray-800 hover:text-blue-600 transition"
-        >
-          Package
-        </Link>
-      </div>
+    <>
+      <nav className={`relative z-50 bg-white w-full md:static md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none z-50" : ""}`}>
+        <div className="items-center gap-x-14 px-4 max-w-screen-2xl mx-auto md:flex md:px-8">
+          <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <Link to="/">
+              <a>
+                <img
+                  src="https://www.floatui.com/logo.svg"
+                  width={120}
+                  height={50}
+                  alt="Float UI logo"
+                />
+              </a>
+            </Link>
+            <div className="md:hidden">
+              <button className="text-gray-500 hover:text-gray-800"
+                onClick={() => setState(!state)}
+              >
+                {
+                  state ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path fillRule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm8.25 5.25a.75.75 0 01.75-.75h8.25a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+                    </svg>
+                  )
+                }
+              </button>
+            </div>
+          </div>
+          <div className={`nav-menu flex-1 pb-3 mt-8 md:block md:pb-0 md:mt-0 ${state ? 'block' : 'hidden'}`}>
+            <ul className="items-center space-y-6 md:flex md:space-x-6 md:space-y-0 z-50">
+              {
+                navigation.map((item, idx) => (
+                  <li key={idx}>
+                    {
+                      item.isDrapdown ? (
+                        <button className="w-full flex items-center justify-between gap-1 font-medium text-gray-700 hover:text-yellow-400"
+                          onClick={() =>
+                            setDrapdownState(prev =>
+                              prev.idx === idx && prev.isActive
+                                ? { isActive: false, idx: null }
+                                : { isActive: true, idx }
+                            )
+                          }
+                        >
+                          {item.title}
 
-      {/* Навигация */}
-      <nav
-        id="menu"
-        className={`
-          flex-col md:flex-row flex items-center justify-center gap-8 text-gray-900 text-sm font-normal
-          max-md:absolute max-md:top-0 max-md:left-0 max-md:overflow-hidden max-md:h-full
-          max-md:bg-white/50 max-md:backdrop-blur
-          transition-[width]
-          md:static
-          max-md:flex
-          ${menuOpen ? 'max-md:w-full' : 'max-md:w-0'}
-        `}
-      >
-        <Link
-          to="/"
-          className={({ isActive }) =>
-            `hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
-          }
-          onClick={() => setMenuOpen(false)}
-        >
-          Головна
-        </Link>
-        <NavLink
-          to="/catalog"
-          className={({ isActive }) =>
-            `hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
-          }
-          onClick={() => setMenuOpen(false)}
-        >
-          Каталог
-        </NavLink>
-        <NavLink
-          to="/pricing"
-          className={({ isActive }) =>
-            `hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
-          }
-          onClick={() => setMenuOpen(false)}
-        >
-          Контакти
-        </NavLink>
-        <NavLink
-          to="/docs"
-          className={({ isActive }) =>
-            `hover:text-indigo-600 ${isActive ? 'text-indigo-600' : ''}`
-          }
-          onClick={() => setMenuOpen(false)}
-        >
-          Портфоліо
-        </NavLink>
+                          {
+                            drapdownState.idx === idx && drapdownState.isActive ? (
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clipRule="evenodd" />
+                              </svg>
+                            ) : (
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                              </svg>
+                            )
+                          }
+                        </button>
+                      ) : (
+                        <Link to={item.path} className="block text-gray-700 hover:text-yellow-400 font-medium">
+                          {item.title}
+                        </Link>
+                      )
+                    }
 
-        {/* Кнопка закрытия меню на мобилках */}
-        <button
-          id="closeMenu"
-          className="md:hidden text-gray-600"
-          onClick={() => setMenuOpen(false)}
-          aria-label="Close menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+                    {
+                      item.isDrapdown && drapdownState.idx === idx && drapdownState.isActive && (
+                        <div className="mt-6 inset-x-0 top-20 w-full md:absolute md:shadow-md md:mt-0">
+                          <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3 z-50'>
+                            {item?.navs.map((dropdownItem, i) => (
+                              <li key={i}>
+                                <p className="text-black text-sm">{dropdownItem.label}</p>
+                                <ul className='mt-5 space-y-6'>
+                                  {dropdownItem.navs.map((navItem, j) => (
+                                    <li key={j} className="group">
+                                      <Link
+                                        to={navItem.path}
+                                        className='flex gap-3 items-center'
+                                        onClick={() => setDrapdownState({ isActive: false, idx: null })}
+                                      >
+                                        <div className='w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center duration-150 group-hover:bg-yellow-400 group-hover:text-white md:w-14 md:h-14'>
+                                          {navItem.icon}
+                                        </div>
+                                        <div>
+                                          <span className="text-gray-800 duration-200 group-hover:text-yellow-400 text-sm font-medium md:text-base">{navItem.title}</span>
+                                          <p className='text-sm text-gray-600 group-hover:text-gray-800 mt-1'>{navItem.desc}</p>
+                                        </div>
+                                      </Link>
+
+                                    </li>
+
+                                  ))}
+                                </ul>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
+                    }
+                  </li>
+                ))
+              }
+              <div className='flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0'>
+                <li>
+                  <a href="javascript:void(0)" className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline">
+                    Sign in
+                  </a>
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
       </nav>
-
-      {/* Правая часть: кнопки */}
-      <div className="flex items-center space-x-4">
-
-        <Link
-          to="/signup"
-          className="hidden md:flex bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition"
-        >
-          Увійти
-        </Link>
-
-        {/* Кнопка открытия меню на мобилках */}
-        <button
-          id="openMenu"
-          className="md:hidden text-gray-600"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </header>
+      {
+        state && (
+          <div
+            className="z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden"
+            onClick={() => setState(false)}
+          />
+        )
+      }
+    </>
   )
 }
