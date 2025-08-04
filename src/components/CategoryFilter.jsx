@@ -122,7 +122,7 @@ export default function CategoryFilter() {
 
     return (
         <div className="bg-white">
-            <main className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 pl-10 pr-10">
+            <main className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 pl-10 pr-10">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900">Пакети</h1>
                     <div className="flex items-center">
@@ -163,7 +163,7 @@ export default function CategoryFilter() {
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                         <form className="hidden lg:block lg:col-span-1">
                             {filters.map((section) => (
-                                <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6">
+                                <Disclosure key={section.id} as="div" className="border-b border-gray-200 py-6" defaultOpen>
                                     <h3 className="-my-3 flow-root">
                                         <DisclosureButton className="group flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                                             <span className="font-medium text-gray-900">{section.name}</span>

@@ -131,7 +131,7 @@ export default function Header() {
 
   const navigation = [
     { title: "Каталог", path: "javascript:void(0)", isDrapdown: true, navs: dropdownNavs },
-    { title: "Контакти", to: "/catalog", isDrapdown: false },
+    { title: "Контакти", path: "/contactUs", isDrapdown: false },
     { title: "Про нас", path: "javascript:void(0)", isDrapdown: false },
     { title: "Оплата", path: "javascript:void(0)", isDrapdown: false },
     { title: "Кольори Pantone", path: "javascript:void(0)", isDrapdown: false }
@@ -152,9 +152,10 @@ export default function Header() {
             <Link to="/">
               <a>
                 <img
-                  src="https://www.floatui.com/logo.svg"
-                  width={120}
-                  height={50}
+                  className='mt-1 lg:mt-0 md:mt-0'
+                  src="./LogoKuliok.PNG"
+                  width={180}
+                  height={110}
                   alt="Float UI logo"
                 />
               </a>
@@ -194,7 +195,6 @@ export default function Header() {
                           }
                         >
                           {item.title}
-
                           {
                             drapdownState.idx === idx && drapdownState.isActive ? (
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
@@ -216,7 +216,7 @@ export default function Header() {
 
                     {
                       item.isDrapdown && drapdownState.idx === idx && drapdownState.isActive && (
-                        <div className="mt-6 inset-x-0 top-20 w-full md:absolute md:shadow-md md:mt-0">
+                        <div className="mt-6 inset-x-0 top-20 w-full md:absolute md:shadow-md md:mt-0 z-50">
                           <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3 z-50'>
                             {item?.navs.map((dropdownItem, i) => (
                               <li key={i}>
@@ -237,9 +237,7 @@ export default function Header() {
                                           <p className='text-sm text-gray-600 group-hover:text-gray-800 mt-1'>{navItem.desc}</p>
                                         </div>
                                       </Link>
-
                                     </li>
-
                                   ))}
                                 </ul>
                               </li>

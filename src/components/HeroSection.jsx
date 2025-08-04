@@ -14,7 +14,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <div className="bg-white relative">
+        <div className="bg-white relative mb-24">
             <section className="bg-opacity-30 py-1 sm:py-6 lg:py-12">
                 <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">

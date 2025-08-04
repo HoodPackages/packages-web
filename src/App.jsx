@@ -4,6 +4,7 @@ import Catalog from "./pages/Catalog"
 import Package from "./pages/Package"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
+import ContactUs from "./pages/ContactUs"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/package/:id" element={<Package />} />
+          <Route path="/contactUs" element={<ContactUs />} />
         </Routes>
       </main>
       <Footer />
