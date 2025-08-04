@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom'
 
 export default function HeroSection() {
     const [showArrows, setShowArrows] = useState(true);
@@ -29,11 +30,9 @@ export default function HeroSection() {
                                 Друкуємо та постачаємо продукцію для бізнесу й подарунків
                             </p>
 
-                            <a
-                                href="#"
-                                title=""
+                            <Link
+                                to="/catalog"
                                 className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-16 hover:bg-yellow-400 focus:bg-yellow-400"
-                                role="button"
                             >
                                 До каталогу
                                 <svg
@@ -50,7 +49,7 @@ export default function HeroSection() {
                                         d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"
                                     />
                                 </svg>
-                            </a>
+                            </Link>
 
                             <p className="mt-5 text-gray-600">
                                 Ознайомитись з нашими роботами:{" "}
