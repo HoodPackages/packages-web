@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// http://localhost:5000
+const API_URL = "https://packages-server-75ra.onrender.com";
+
 export const usePackages = () => {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://packages-server-75ra.onrender.com/api/products')
+    axios.get(`${API_URL}/api/products`)
       .then(res => {
         setPackages(res.data);
         console.log(res.data)
