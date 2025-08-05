@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-// http://localhost:5000
-const API_URL = "https://packages-server-75ra.onrender.com";
+import { API_URL } from "./config";
 
 export const usePackages = () => {
   const [packages, setPackages] = useState([]);
@@ -20,5 +18,5 @@ export const usePackages = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  return { packages, loading };
+  return { packages, loading, API_URL };
 };
