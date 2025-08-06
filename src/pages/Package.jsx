@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { usePackages } from "../data/usePackages"
 
 export default function Package() {
@@ -8,17 +8,21 @@ export default function Package() {
     const [selectedOption, setSelectedOption] = useState("")
     const [quantity, setQuantity] = useState(100)
 
-    if (loading) return <div className="text-center mt-10 text-xl">Завантаження...</div>;
-
     const pack = packages.find(p => p._id === id)
 
+    useEffect(() => {
+        if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
+            const minQty = Math.min(...pack.price.map(p => p.minQty));
+            setQuantity(minQty);
+        }
+    }, [pack]);
+
+    if (loading) return <div className="text-center mt-10 text-xl">Завантаження...</div>;
     if (!pack) return <div className="text-center mt-10 text-xl">Пакет не знайдено</div>
 
-    // Найти цену за единицу по количеству
     const getBaseUnitPrice = () => {
         if (!Array.isArray(pack.price) || pack.price.length === 0) return 0;
 
-        // Сортируем по minQty по убыванию и ищем подходящий уровень
         const sorted = [...pack.price].sort((a, b) => b.minQty - a.minQty);
         const level = sorted.find(p => quantity >= p.minQty) || sorted[sorted.length - 1];
 
@@ -47,7 +51,7 @@ export default function Package() {
             <h1 className="text-3xl font-bold text-gray-800 mb-4">{pack.name}</h1>
 
             <img
-                src={pack.images?.[0]} // если images — массив
+                src={pack.images?.[0]}
                 alt={pack.name}
                 className="w-full max-h-72 object-contain mb-6 rounded"
             />
@@ -92,8 +96,10 @@ export default function Package() {
                     onChange={e => setQuantity(e.target.value)}
                     onBlur={() => {
                         const val = Number(quantity);
-                        if (isNaN(val) || val < 100) {
-                            setQuantity(100);
+                        const minQtyFromPack = Math.min(...pack.price.map(p => p.minQty));
+
+                        if (isNaN(val) || val < minQtyFromPack) {
+                            setQuantity(minQtyFromPack);
                         } else {
                             setQuantity(val);
                         }
