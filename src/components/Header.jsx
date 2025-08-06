@@ -17,7 +17,7 @@ export default function Header() {
   const navigation = [
     { title: "Каталог", path: "javascript:void(0)", isDropdown: true, navs: dynamicDropdownNavs },
     { title: "Контакти", path: "/contactUs", isDropdown: false },
-    { title: "Про нас", path: "javascript:void(0)", isDropdown: false },
+    { title: "Про нас", path: "/about", isDropdown: false },
     { title: "Оплата", path: "javascript:void(0)", isDropdown: false },
     { title: "Кольори Pantone", path: "javascript:void(0)", isDropdown: false }
   ];
@@ -132,7 +132,7 @@ export default function Header() {
               <div className='flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0'>
                 <li>
                   <a href="javascript:void(0)" className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline">
-                    Sign in
+                    Увійти
                   </a>
                 </li>
               </div>

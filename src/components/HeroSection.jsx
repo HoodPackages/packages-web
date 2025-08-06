@@ -24,14 +24,14 @@ export default function HeroSection() {
                                 Друк під замовлення для вашого бренду
                             </p>
                             <h1 className="mt-4 text-4xl font-bold text-black lg:mt-8 sm:text-6xl xl:text-8xl">
-                                Сумки, футболки, коробки та інше
+                                Пакети, коробки, футболки та інше
                             </h1>
                             <p className="mt-4 text-base text-black lg:mt-8 sm:text-xl">
                                 Друкуємо та постачаємо продукцію для бізнесу й подарунків
                             </p>
 
                             <Link
-                                to="/catalog"
+                                to="/catalog/Банан"
                                 className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-16 hover:bg-yellow-400 focus:bg-yellow-400"
                             >
                                 До каталогу
