@@ -45,7 +45,7 @@ export default function Header() {
             <Link to="/">
               <img
                 className='mt-1 lg:mt-0 md:mt-0'
-                src="./LogoKuliok.PNG"
+                src="/LogoKuliok.PNG"
                 width={180}
                 height={110}
                 alt="Float UI logo"
@@ -113,10 +113,12 @@ export default function Header() {
                               <li key={i}>
                                 <Link
                                   to={dropdownItem.path}
-                                  className='block text-gray-800 hover:text-yellow-400 text-lg font-semibold'
                                   onClick={() => setDropdownState({ isActive: false, idx: null })}
+                                  className="group block p-4 rounded-xl border border-gray-200 hover:border-yellow-400 hover:bg-yellow-50 transition-all duration-200 ease-in-out text-gray-800 hover:text-yellow-600 text-lg font-semibold shadow-sm hover:shadow-md"
                                 >
-                                  {dropdownItem.label}
+                                  <span className="group-hover:underline underline-offset-4">
+                                    {dropdownItem.label}
+                                  </span>
                                 </Link>
                               </li>
                             ))}
