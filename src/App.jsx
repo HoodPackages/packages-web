@@ -16,8 +16,8 @@ function App() {
       <main className="min-h-screen px-4 py-6">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/package/:id" element={<Package />} />
+          <Route path="/catalog/:categoryName" element={<Catalog />} />
+          <Route path="/package/:category/:id" element={<Package />} />
           <Route path="/contactUs" element={<ContactUs />} />
         </Routes>
       </main>

@@ -13,7 +13,7 @@ export default function PackageCard({ pack }) {
   return (
     <div className="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
       <Link
-        to={`/package/${pack._id}`}
+        to={`/package/${pack.category}/${pack._id}`}
         className="relative mx-3 mt-3 flex h-80 overflow-hidden rounded-xl"
       >
         <img
@@ -43,7 +43,7 @@ export default function PackageCard({ pack }) {
       </Link>
 
       <div className="mt-4 px-5 pb-5">
-        <Link to={`/package/${pack._id}`}>
+        <Link to={`/package/${pack.category}/${pack._id}`}>
           <h5 className="text-xl tracking-tight text-slate-900">{pack.name}</h5>
         </Link>
 

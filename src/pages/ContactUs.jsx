@@ -47,7 +47,6 @@ const ContactUs = () => {
             setLoading(false);
         }
     };
-
     return (
         <>
             <section className="relative max-w-screen-xl mx-auto z-10 overflow-hidden bg-white py-20 dark:bg-dark lg:py-[120px]">
@@ -62,9 +61,12 @@ const ContactUs = () => {
                                     БУДЬТЕ З НАМИ
                                 </h2>
                                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                    do eius tempor incididunt ut labore e dolore magna aliqua. Ut
-                                    enim adiqua minim veniam quis nostrud exercitation ullamco
+                                    Дякуємо, що завітали до нас! Ми — професіонали у сфері продажу якісних пакетів різного формату та
+                                    друку на них. Готові допомогти вам обрати оптимальний варіант для вашого бізнесу або заходу.
+                                </p>
+                                <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
+                                    Якщо у вас є питання, потребуєте консультації або хочете зробити замовлення, зв'яжіться з нами
+                                    за зручним способом:
                                 </p>
                                 <div className="mb-8 flex w-full max-w-[370px]">
                                     <div className="mr-6 flex h-[60px] w-full max-w-[60px] items-center justify-center overflow-hidden rounded bg-primary/5 text-primary sm:h-[70px] sm:max-w-[70px]">
@@ -155,6 +157,9 @@ const ContactUs = () => {
                                         </p>
                                     </div>
                                 </div>
+                                <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
+                                    Ми завжди раді співпраці та готові запропонувати індивідуальні умови для наших партнерів.
+                                </p>
                             </div>
                         </div>
                         <div className="w-full px-4 lg:w-1/2 xl:w-5/12">

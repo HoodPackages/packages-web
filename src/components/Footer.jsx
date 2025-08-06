@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer
@@ -7,14 +9,20 @@ export default function Footer() {
       "
     >
       <div className="flex items-center gap-8">
-        {["Home", "About", "Services", "Contact", "Help"].map((item) => (
-          <a
-            key={item}
-            href="#"
-            className="font-medium text-gray-500 hover:text-black transition-all"
+        {[
+          { label: "Головна", to: "/" },
+          { label: "Про нас", to: "/about" },
+          { label: "Оплата", to: "/payment" },
+          { label: "Контакти", to: "/contactUs" },
+          { label: "Допомога", to: "/help" },
+        ].map(({ label, to }) => (
+          <Link
+            key={label}
+            to={to}
+            className="font-medium text-gray-500 hover:text-black transition-colors duration-200 ease-in-out"
           >
-            {item}
-          </a>
+            {label}
+          </Link>
         ))}
       </div>
 
@@ -127,9 +135,9 @@ export default function Footer() {
 
       <p className="mt-8 text-center">
         Copyright © {new Date().getFullYear()}{" "}
-        <a href="https://prebuiltui.com" className="underline hover:text-yellow-400">
+        <span className="underline hover:text-yellow-400">
           Kuliok
-        </a>
+        </span>
         . Усі права захищено.
       </p>
     </footer>

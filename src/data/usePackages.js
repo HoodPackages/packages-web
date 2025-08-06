@@ -10,7 +10,6 @@ export const usePackages = () => {
     axios.get(`${API_URL}/api/products`)
       .then(res => {
         setPackages(res.data);
-        console.log(res.data)
       })
       .catch(err => {
         console.error("Ошибка при загрузке пакетов:", err);

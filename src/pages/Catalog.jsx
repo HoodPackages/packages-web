@@ -4,8 +4,6 @@ import PackageCard from "../components/PackageCard";
 import CategoryFilter from "../components/CategoryFilter";
 
 export default function Catalog() {
-
-
   return (
     <>
       <CategoryFilter />
