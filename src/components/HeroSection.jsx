@@ -52,10 +52,10 @@ export default function HeroSection() {
                             </Link>
 
                             <p className="mt-5 text-gray-600">
-                                Ознайомитись з нашими роботами:{" "}
-                                <a href="#" className="text-yellow-400 hover:underline">
-                                    Галерея
-                                </a>
+                                Ознайомитись з типами оплати:{" "}
+                                <Link to="payments" className="text-yellow-400 hover:underline">
+                                    Оплата
+                                </Link>
                             </p>
                         </div>
 
