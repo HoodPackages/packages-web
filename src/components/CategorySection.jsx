@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePackages } from "../data/usePackages";
+import { Link } from "react-router-dom";
 
 export default function CategorySection() {
     const { packages, loading } = usePackages();
@@ -47,7 +48,11 @@ export default function CategorySection() {
 
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
                 {visibleCategories.map((category) => (
-                    <div key={category.name} className="flex flex-col items-center bg-white">
+                    <Link
+                        key={category.name}
+                        to={`/catalog/${encodeURIComponent(category.name)}`}
+                        className="flex flex-col items-center bg-white transition-transform duration-200 hover:scale-105"
+                    >
                         <img
                             src={category.image}
                             alt={category.name}
@@ -55,7 +60,7 @@ export default function CategorySection() {
                         />
                         <h3 className="mt-4 text-lg font-semibold text-gray-900">{category.name}</h3>
                         <p className="text-sm text-gray-500">Товарів: {category.products}</p>
-                    </div>
+                    </Link>
                 ))}
             </div>
 

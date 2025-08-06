@@ -12,6 +12,7 @@ export default function PackageCard({ pack }) {
 
   return (
     <div className="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+      {window.scrollTo({ top: 0, behavior: "smooth" })}
       <Link
         to={`/package/${pack.category}/${pack._id}`}
         className="relative mx-3 mt-3 flex h-80 overflow-hidden rounded-xl"
