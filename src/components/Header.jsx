@@ -19,7 +19,7 @@ export default function Header() {
     { title: "Контакти", path: "/contactUs", isDropdown: false },
     { title: "Про нас", path: "/about", isDropdown: false },
     { title: "Оплата", path: "javascript:void(0)", isDropdown: false },
-    { title: "Кольори Pantone", path: "javascript:void(0)", isDropdown: false }
+    { title: "Кольори Pantone", path: "/pantone", isDropdown: false }
   ];
 
   useEffect(() => {

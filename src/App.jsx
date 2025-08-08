@@ -6,7 +6,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import ContactUs from "./pages/ContactUs"
 import Chatwoot from "./components/Chatwoot"
-
+import PantonePage from "./pages/PantonePage"
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route path="/catalog/:categoryName" element={<Catalog />} />
           <Route path="/package/:category/:id" element={<Package />} />
           <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/pantone" element={<PantonePage />} />
         </Routes>
       </main>
       <Footer />
