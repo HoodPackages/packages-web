@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePackages } from '../data/usePackages'
 import { FaSpinner } from "react-icons/fa";
+import { Package } from "lucide-react";
 
 export default function Header() {
   const { packages, loading } = usePackages();
   const [state, setState] = useState(false)
-  const [dropdownState, setDropdownState] = useState({ isActive: false, idx: null })
+  const [dropdownState, setDropDownState] = useState({ isActive: false, idx: null })
 
   const uniqueCategories = [...new Set(packages.map(pkg => pkg.category || 'Без категорії'))];
 
@@ -26,7 +27,7 @@ export default function Header() {
   useEffect(() => {
     document.onclick = (e) => {
       const target = e.target;
-      if (!target.closest(".nav-menu")) setDropdownState({ isActive: false, idx: null });
+      if (!target.closest(".nav-menu")) setDropDownState({ isActive: false, idx: null });
     };
   }, []);
 
@@ -36,13 +37,15 @@ export default function Header() {
         <div className="items-center gap-x-14 px-4 max-w-screen-2xl mx-auto md:flex md:px-8">
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link to="/">
-              <img
-                className='mt-1 lg:mt-0 md:mt-0'
-                src="/LogoKuliok.PNG"
-                width={180}
-                height={110}
-                alt="Float UI logo"
-              />
+              <a>
+                <img
+                  className='mt-1 lg:mt-0 md:mt-0'
+                  src="/LogoKuliok.PNG"
+                  width={180}
+                  height={110}
+                  alt="Кульок Лого"
+                />
+              </a>
             </Link>
             <div className="md:hidden">
               <button className="text-gray-500 hover:text-gray-800"
@@ -71,7 +74,7 @@ export default function Header() {
                       item.isDropdown ? (
                         <button className="w-full flex items-center justify-between gap-1 font-medium text-gray-700 hover:text-yellow-400"
                           onClick={() =>
-                            setDropdownState(prev =>
+                            setDropDownState(prev =>
                               prev.idx === idx && prev.isActive
                                 ? { isActive: false, idx: null }
                                 : { isActive: true, idx }
@@ -98,36 +101,36 @@ export default function Header() {
                       )
                     }
 
-                    {
-                      item.isDropdown && dropdownState.idx === idx && dropdownState.isActive && (
-                        <div className="mt-6 inset-x-0 top-20 w-full md:absolute md:shadow-md md:mt-0 z-50">
-                          {
-                            loading ? (
-                              <div className="flex justify-center items-center p-6 bg-white rounded-lg shadow max-w-screen-xl mx-auto">
-                                <FaSpinner className="animate-spin h-6 w-6 mr-2 text-gray-500" />
-                                <span className="text-gray-500 text-lg">Завантаження...</span>
-                              </div>
-                            ) : (
-                              <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3 z-50'>
-                                {item.navs.map((dropdownItem, i) => (
-                                  <li key={i}>
-                                    <Link
-                                      to={dropdownItem.path}
-                                      onClick={() => setDropdownState({ isActive: false, idx: null })}
-                                      className="group block p-4 rounded-xl border border-gray-200 hover:border-yellow-400 hover:bg-yellow-50 transition-all duration-200 ease-in-out text-gray-800 hover:text-yellow-600 text-lg font-semibold shadow-sm hover:shadow-md"
-                                    >
-                                      <span className="group-hover:underline underline-offset-4">
-                                        {dropdownItem.label}
-                                      </span>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            )
-                          }
-                        </div>
-                      )
-                    }
+                    {item.isDropdown && dropdownState.idx === idx && dropdownState.isActive && (
+                      <div className="mt-6 inset-x-0 top-20 max-w-5xl mx-auto md:absolute md:mt-4 z-50 rounded-2xl overflow-hidden shadow-lg bg-white">
+                        <ul className="bg-white rounded-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
+                          {[...new Map(packages.map(p => [p.category, p])).values()].map((catItem) => (
+                            <li key={item._id} className="group">
+                              <Link
+                                to={`/catalog/${catItem.category}`}
+                                className="flex gap-3 items-center"
+                                onClick={() =>
+                                  setDropDownState({ isActive: false, idx: null })
+                                }
+                              >
+                                <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center duration-150 group-hover:bg-yellow-400 group-hover:text-white md:w-14 md:h-14">
+                                  <Package size={20} />
+                                </div>
+                                <div>
+                                  <span className="text-gray-800 duration-200 group-hover:text-yellow-400 text-sm font-medium md:text-base">
+                                    {catItem.category}
+                                  </span>
+                                  <p className="text-sm text-gray-600 group-hover:text-gray-800 mt-1">
+                                    {catItem.name?.slice(0, 30)}...
+                                  </p>
+                                </div>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                   </li>
                 ))
               }

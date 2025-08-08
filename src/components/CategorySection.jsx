@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { usePackages } from "../data/usePackages";
 import { Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 
 export default function CategorySection() {
     const { packages, loading } = usePackages();
@@ -32,9 +33,12 @@ export default function CategorySection() {
 
     if (loading) {
         return (
-            <div className="py-16 bg-white text-center">
-                <h2 className="text-3xl font-bold text-gray-900">Категорії</h2>
-                <p className="mt-4 max-w-md mx-auto text-gray-500">Завантаження...</p>
+            <div className="flex justify-center items-center min-h-[200px]">
+                <div className="flex items-center gap-3 text-lg text-gray-500">
+                    <FaSpinner className="animate-spin h-6 w-6" />
+                    <span>Категорії</span>
+                    <span>Завантаження...</span>
+                </div>
             </div>
         );
     }
