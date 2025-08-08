@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { usePackages } from "../data/usePackages"
+import { FaSpinner } from "react-icons/fa";
 
 export default function Package() {
     const { id } = useParams()
@@ -17,7 +18,16 @@ export default function Package() {
         }
     }, [pack]);
 
-    if (loading) return <div className="text-center mt-10 text-xl">Завантаження...</div>;
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-[200px]">
+                <div className="flex items-center gap-3 text-lg text-gray-500">
+                    <FaSpinner className="animate-spin h-6 w-6" />
+                    <span>Завантаження...</span>
+                </div>
+            </div>
+        );
+    }
     if (!pack) return <div className="text-center mt-10 text-xl">Пакет не знайдено</div>
 
     const getBaseUnitPrice = () => {

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { usePackages } from "../data/usePackages";
 import PackageCard from "./PackageCard";
+import { FaSpinner } from "react-icons/fa";
 
 export default function ProductCard({ packages }) {
     const { loading } = usePackages();
@@ -11,7 +12,16 @@ export default function ProductCard({ packages }) {
         return packages.filter(p => p.category === selectedType);
     }, [packages, selectedType]);
 
-    if (loading) return <div>Завантаження...</div>;
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-[200px]">
+                <div className="flex items-center gap-3 text-lg text-gray-500">
+                    <FaSpinner className="animate-spin h-6 w-6" />
+                    <span>Завантаження...</span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <section className="py-0 px-4">

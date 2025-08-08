@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { usePackages } from '../data/usePackages'
+import { FaSpinner } from "react-icons/fa";
 
 export default function Header() {
   const { packages, loading } = usePackages();
@@ -28,14 +29,6 @@ export default function Header() {
       if (!target.closest(".nav-menu")) setDropdownState({ isActive: false, idx: null });
     };
   }, []);
-
-  if (loading) {
-    return (
-      <nav className="bg-white p-4">
-        <p>Завантаження...</p>
-      </nav>
-    );
-  }
 
   return (
     <>
@@ -108,21 +101,30 @@ export default function Header() {
                     {
                       item.isDropdown && dropdownState.idx === idx && dropdownState.isActive && (
                         <div className="mt-6 inset-x-0 top-20 w-full md:absolute md:shadow-md md:mt-0 z-50">
-                          <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3 z-50'>
-                            {item.navs.map((dropdownItem, i) => (
-                              <li key={i}>
-                                <Link
-                                  to={dropdownItem.path}
-                                  onClick={() => setDropdownState({ isActive: false, idx: null })}
-                                  className="group block p-4 rounded-xl border border-gray-200 hover:border-yellow-400 hover:bg-yellow-50 transition-all duration-200 ease-in-out text-gray-800 hover:text-yellow-600 text-lg font-semibold shadow-sm hover:shadow-md"
-                                >
-                                  <span className="group-hover:underline underline-offset-4">
-                                    {dropdownItem.label}
-                                  </span>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                          {
+                            loading ? (
+                              <div className="flex justify-center items-center p-6 bg-white rounded-lg shadow max-w-screen-xl mx-auto">
+                                <FaSpinner className="animate-spin h-6 w-6 mr-2 text-gray-500" />
+                                <span className="text-gray-500 text-lg">Завантаження...</span>
+                              </div>
+                            ) : (
+                              <ul className='bg-white max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3 z-50'>
+                                {item.navs.map((dropdownItem, i) => (
+                                  <li key={i}>
+                                    <Link
+                                      to={dropdownItem.path}
+                                      onClick={() => setDropdownState({ isActive: false, idx: null })}
+                                      className="group block p-4 rounded-xl border border-gray-200 hover:border-yellow-400 hover:bg-yellow-50 transition-all duration-200 ease-in-out text-gray-800 hover:text-yellow-600 text-lg font-semibold shadow-sm hover:shadow-md"
+                                    >
+                                      <span className="group-hover:underline underline-offset-4">
+                                        {dropdownItem.label}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )
+                          }
                         </div>
                       )
                     }
