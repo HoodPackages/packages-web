@@ -21,8 +21,14 @@ const ContactUs = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setMessage(null);
+
+        if (!formData.email.trim() || !formData.phone.trim()) {
+            setMessage("Будь ласка, введіть електронну адресу або номер телефону.");
+            return;
+        }
+
+        setLoading(true);
 
         try {
             await axios.post(`${API_URL}/api/support/contactUs`, {

@@ -41,11 +41,12 @@ export default function CategorySection() {
 
     return (
         <div className="py-16 bg-white text-center">
-            <h2 className="text-3xl font-bold text-gray-900">Категорії</h2>
-            <p className="mt-4 max-w-md mx-auto text-gray-500">
-                Ми підготували різні пакети товарів — оберіть категорію, яка вам підходить найбільше.
-            </p>
-
+            <section id="catalog-section">
+                <h2 className="text-3xl font-bold text-gray-900">Категорії</h2>
+                <p className="mt-4 max-w-md mx-auto text-gray-500">
+                    Ми підготували різні пакети товарів — оберіть категорію, яка вам підходить найбільше.
+                </p>
+            </section>
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
                 {visibleCategories.map((category) => (
                     <Link
