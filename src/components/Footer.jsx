@@ -6,9 +6,11 @@ export default function Footer() {
       className="
         flex flex-col bg-slate-50 items-center justify-around w-full py-16 text-sm text-gray-800/70
         font-poppins
+        px-4
       "
     >
-      <div className="flex items-center gap-8">
+      {/* Навигация */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-6 w-full max-w-screen-md justify-center flex-wrap">
         {[
           { label: "Головна", to: "/" },
           { label: "Про нас", to: "/about" },
@@ -19,14 +21,15 @@ export default function Footer() {
           <Link
             key={label}
             to={to}
-            className="font-medium text-gray-500 hover:text-black transition-colors duration-200 ease-in-out"
+            className="font-medium text-gray-500 hover:text-black transition-colors duration-200 ease-in-out whitespace-nowrap"
           >
             {label}
           </Link>
         ))}
       </div>
 
-      <div className="flex items-center gap-4 mt-8 text-indigo-500">
+      {/* Соцсети */}
+      <div className="flex flex-wrap justify-center items-center gap-4 mt-8 text-indigo-500 max-w-screen-md w-full">
         {/* Facebook */}
         <a href="#" className="hover:-translate-y-0.5 transition-all duration-300">
           <svg
@@ -133,9 +136,10 @@ export default function Footer() {
         </a>
       </div>
 
-      <p className="mt-8 text-center">
+      {/* Копирайт */}
+      <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full">
         Copyright © {new Date().getFullYear()}{" "}
-        <span className="underline hover:text-yellow-400">
+        <span className="underline hover:text-yellow-400 cursor-pointer">
           Kuliok
         </span>
         . Усі права захищено.
