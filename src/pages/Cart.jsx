@@ -27,7 +27,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 bg-yellow-50 rounded-3xl shadow-lg">
+    <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-yellow-50">
       <h1 className="text-4xl font-extrabold text-yellow-600 mb-10 text-center">🛒 Ваш кошик</h1>
 
       <div className="grid gap-8 md:grid-cols-3">
