@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { usePackages } from "../data/usePackages"
 import { FaSpinner } from "react-icons/fa";
+import { useCartStore } from "../../store/cartStore";
 
 export default function Package() {
     const { id } = useParams()
     const { packages, loading } = usePackages();
     const [selectedOption, setSelectedOption] = useState("")
     const [quantity, setQuantity] = useState(100)
+    const addToCart = useCartStore(state => state.addToCart);
 
     const pack = packages.find(p => p._id === id)
 
@@ -55,6 +57,16 @@ export default function Package() {
     };
 
     const totalPrice = (getUnitPrice() * quantity).toFixed(2);
+
+    const handleAddToCart = () => {
+        addToCart({
+            _id: pack._id,
+            name: pack.name + (selectedOption ? ` (${selectedOption})` : ""),
+            image: pack.images?.[0],
+            price: getUnitPrice(),
+            quantity
+        });
+    };
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-10">
@@ -124,6 +136,13 @@ export default function Package() {
             <div className="mt-1 text-2xl font-bold text-green-700">
                 Підсумкова ціна: {totalPrice} грн
             </div>
+
+            <button
+                onClick={handleAddToCart}
+                className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-200"
+            >
+                Додати в кошик
+            </button>
         </div>
     )
 }

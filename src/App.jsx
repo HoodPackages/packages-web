@@ -9,6 +9,7 @@ import Chatwoot from "./components/Chatwoot";
 import PantonePage from "./pages/PantonePage";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/pantone" element={<PantonePage />} />
           <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
 
           <Route path="*" element={< NotFound />} />
         </Routes>

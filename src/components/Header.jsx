@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom'
 import { usePackages } from '../data/usePackages'
 import { FaSpinner } from "react-icons/fa";
 import { Package } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "../../store/cartStore";
 
 export default function Header() {
   const { packages, loading } = usePackages();
   const [state, setState] = useState(false)
   const [dropdownState, setDropDownState] = useState({ isActive: false, idx: null })
+
+  const cartCount = useCartStore(state => state.cart.length);
 
   const uniqueCategories = [...new Set(packages.map(pkg => pkg.category || 'Без категорії'))];
 
@@ -37,20 +41,18 @@ export default function Header() {
         <div className="items-center gap-x-14 px-4 max-w-screen-2xl mx-auto md:flex md:px-8">
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link to="/">
-              <a>
-                <img
-                  className='mt-1 lg:mt-0 md:mt-0'
-                  src="/LogoKuliok.PNG"
-                  width={180}
-                  height={110}
-                  alt="Кульок Лого"
-                />
-              </a>
+              <img
+                className='mt-1 lg:mt-0 md:mt-0'
+                src="/LogoKuliok.PNG"
+                width={180}
+                height={110}
+                alt="Кульок Лого"
+              />
             </Link>
+
             <div className="md:hidden">
               <button className="text-gray-500 hover:text-gray-800"
-                onClick={() => setState(!state)}
-              >
+                onClick={() => setState(!state)}>
                 {
                   state ? (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -65,6 +67,7 @@ export default function Header() {
               </button>
             </div>
           </div>
+
           <div className={`nav-menu flex-1 pb-3 mt-8 md:block md:pb-0 md:mt-0 ${state ? 'block' : 'hidden'}`}>
             <ul className="items-center space-y-6 md:flex md:space-x-6 md:space-y-0 z-50">
               {
@@ -134,13 +137,26 @@ export default function Header() {
                   </li>
                 ))
               }
+
               <div className='flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0'>
                 <li>
                   <a href="javascript:void(0)" className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline">
                     Увійти
                   </a>
                 </li>
+
+                <li>
+                  <Link to="/cart" className="relative flex items-center hover:text-yellow-400">
+                    <ShoppingCart size={24} />
+                    {cartCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
+                        {cartCount}
+                      </span>
+                    )}
+                  </Link>
+                </li>
               </div>
+
             </ul>
           </div>
         </div>

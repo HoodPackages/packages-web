@@ -12,7 +12,6 @@ export default function PackageCard({ pack }) {
 
   return (
     <div className="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-      {window.scrollTo({ top: 0, behavior: "smooth" })}
       <Link
         to={`/package/${pack.category}/${pack._id}`}
         className="relative mx-3 mt-3 flex h-80 overflow-hidden rounded-xl"
@@ -48,7 +47,6 @@ export default function PackageCard({ pack }) {
           <h5 className="text-xl tracking-tight text-slate-900">{pack.name}</h5>
         </Link>
 
-
         <div className="mt-2 mb-5 flex items-center justify-between">
           <p>
             {minPrice !== null && (
@@ -60,8 +58,8 @@ export default function PackageCard({ pack }) {
           </p>
         </div>
 
-        <button
-          type="button"
+        <Link
+          to={`/package/${pack.category}/${pack._id}`}
           className="flex w-full items-center justify-center rounded-md bg-yellow-400 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           <svg
@@ -78,8 +76,8 @@ export default function PackageCard({ pack }) {
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          Додати до кошику
-        </button>
+          Переглянути
+        </Link>
       </div>
     </div>
   )
