@@ -5,12 +5,11 @@ export default function Footer() {
     <footer
       className="
         flex flex-col bg-slate-50 items-center justify-around w-full py-16 text-sm text-gray-800/70
-        font-poppins
-        px-4
+        font-poppins px-4
       "
     >
       {/* Навигация */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-6 w-full max-w-screen-md justify-center flex-wrap">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-6 w-full max-w-screen-md justify-center mx-auto text-center">
         {[
           { label: "Головна", to: "/" },
           { label: "Про нас", to: "/about" },
@@ -137,7 +136,7 @@ export default function Footer() {
       </div>
 
       {/* Копирайт */}
-      <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full">
+      <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full mx-auto">
         Copyright © {new Date().getFullYear()}{" "}
         <span className="underline hover:text-yellow-400 cursor-pointer">
           Kuliok
