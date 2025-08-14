@@ -11,7 +11,7 @@ export default function Cart() {
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-yellow-50">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
-          alt="Empty Cart"
+          alt="Порожній кошик"
           className="w-40 mb-6 opacity-80"
         />
         <h2 className="text-3xl font-extrabold text-yellow-600 mb-2">Ваш кошик порожній</h2>
@@ -48,7 +48,7 @@ export default function Cart() {
                   {item.price} грн × {item.quantity} шт
                 </p>
                 <p className="text-yellow-500 font-extrabold mt-2 text-lg">
-                  {item.price * item.quantity} грн
+                  {(item.price * item.quantity).toFixed(2)} грн
                 </p>
               </div>
               <button
@@ -68,15 +68,14 @@ export default function Cart() {
           </h3>
           <div className="flex justify-between mb-3 text-gray-700">
             <span>Товари:</span>
-            <span className="font-semibold">{totalPrice} грн</span>
+            <span className="font-semibold">{totalPrice.toFixed(2)} грн</span>
           </div>
           <div className="flex justify-between mb-6 text-gray-700">
             <span>Доставка:</span>
             <span className="font-semibold">Безкоштовно</span>
           </div>
           <div className="flex justify-between text-2xl font-extrabold text-yellow-600 mb-8">
-            <span>Разом:</span>
-            <span>{totalPrice} грн</span>
+            <span>Разом: {totalPrice.toFixed(2)} грн</span>
           </div>
 
           <Link
