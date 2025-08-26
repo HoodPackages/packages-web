@@ -25,13 +25,14 @@ function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/catalog/:categoryName" element={<Catalog />} />
+          <Route path="/catalog/:categoryName/:subCategoryName" element={<Catalog />} />
           <Route path="/package/:category/:id" element={<Package />} />
 
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/pantone" element={<PantonePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/cart" element={<Cart />} />
-          
+
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/order-success" element={<OrderSuccessPage />} />

@@ -1,7 +1,7 @@
 'use client'
 import ProductCard from './ProductCard'
 import { useState, useMemo } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { usePackages } from "../data/usePackages";
 import { ChevronDownIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
@@ -131,9 +131,10 @@ function darkenColor(hex, amount = 20) {
 
 
 export default function CategoryFilter() {
-    const { packages, loading } = usePackages();
+    const navigate = useNavigate();
 
-    const { categoryName } = useParams();
+    const { packages, loading } = usePackages();
+    const { categoryName, subCategoryName } = useParams();
 
     const [currentSort, setCurrentSort] = useState(sortOptions[0].name);
 
@@ -160,15 +161,27 @@ export default function CategoryFilter() {
         }
     };
 
-    const filters = useMemo(() => {
-        const packagesInCategory = packages.filter(pkg => pkg.category === categoryName);
-        const allFilters = generateFiltersFromPackages(packagesInCategory);
-        return allFilters.filter(f => f.id !== 'category');
+    const subcategories = useMemo(() => {
+        const subs = packages
+            .filter(pkg => pkg.category === categoryName && pkg.subcategory)
+            .map(pkg => pkg.subcategory);
+
+        return Array.from(new Set(subs)); // убираем дубли
     }, [packages, categoryName]);
 
-    const [selectedFilters, setSelectedFilters] = useState({
-        category: [],
+    const filters = useMemo(() => {
+        const packagesInCategory = packages.filter(pkg => {
+            if (subCategoryName) {
+                return pkg.category === categoryName && pkg.subcategory === subCategoryName;
+            }
+            return pkg.category === categoryName;
+        });
 
+        const allFilters = generateFiltersFromPackages(packagesInCategory);
+        return allFilters.filter(f => f.id !== 'category');
+    }, [packages, categoryName, subCategoryName]);
+
+    const [selectedFilters, setSelectedFilters] = useState({
         size: [],
         color: [],
         density: [],
@@ -191,8 +204,21 @@ export default function CategoryFilter() {
         });
     };
 
+
+    const slugToName = (slug) => {
+        // Преобразуем slug в нормальное название
+        let name = slug.replace(/-/g, ' ');
+        name = name.replace(/\bZip\b /g, 'Zip-'); // дефис после Zip
+        return name;
+    };
+
     const filteredAndSortedPackages = useMemo(() => {
+        const subName = subCategoryName ? slugToName(subCategoryName) : null;
+
         const filtered = packages.filter((pkg) => {
+            const categoryMatch = pkg.category === categoryName;
+            const subcategoryMatch = subName ? pkg.subcategory === subName : true;
+
             const sizeMatch = selectedFilters.size.length === 0 || selectedFilters.size.includes(pkg.size);
             const colorMatch = selectedFilters.color.length === 0 || selectedFilters.color.includes(pkg.color);
             const densityMatch = selectedFilters.density.length === 0 || selectedFilters.density.includes(pkg.density);
@@ -200,19 +226,21 @@ export default function CategoryFilter() {
             const handleMatch = (selectedFilters.handle.length === 0 || selectedFilters.handle.includes('any') || selectedFilters.handle.includes(String(pkg.handle)));
             const weightMatch = selectedFilters.weight.length === 0 || selectedFilters.weight.includes(pkg.weight);
 
-            // const categoryMatch = selectedFilters.category.length === 0 || selectedFilters.category.includes(pkg.category);
-            const categoryMatch = (pkg.category === categoryName);
-            return categoryMatch && sizeMatch && colorMatch && densityMatch && bottomMatch && handleMatch && weightMatch;
+            return categoryMatch && subcategoryMatch && sizeMatch && colorMatch && densityMatch && bottomMatch && handleMatch && weightMatch;
         });
 
         return sortPackages(filtered);
-    }, [packages, selectedFilters, currentSort, categoryName]);
+    }, [packages, selectedFilters, currentSort, categoryName, subCategoryName]);
+
+
 
     return (
         <div className="bg-white">
             <main className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 pl-10 pr-10">
                 <div className="flex items-baseline justify-between border-b border-gray-200 pt-8 pb-6">
-                    <h1 className="text-4xl font-bold tracking-tight text-gray-900">Категорія: {categoryName}</h1>
+                    <h1 className="text-4xl font-bold tracking-tight text-gray-900">Категорія: {categoryName}
+                        {subCategoryName && ` → ${slugToName(subCategoryName)}`}
+                    </h1>
                     <div className="flex items-center">
                         <Menu as="div" className="relative inline-block text-left">
                             <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 cursor-pointer">
@@ -246,6 +274,24 @@ export default function CategoryFilter() {
                         </Menu>
                     </div>
                 </div>
+
+                {subcategories.length > 0 && !subCategoryName && (
+                    <div className="my-6 flex flex-wrap gap-3">
+                        {subcategories.map(sub => {
+                            const slug = sub.replace(/\s+/g, "-");
+                            return (
+                                <button
+                                    key={sub}
+                                    onClick={() => navigate(`/catalog/${categoryName}/${slug}`)}
+                                    className="px-4 py-2 bg-gray-100 rounded-xl shadow hover:bg-gray-200 transition text-sm font-medium"
+                                >
+                                    {sub}
+                                </button>
+                            );
+                        })}
+                    </div>
+                )}
+
 
                 <section aria-labelledby="products-heading" className="pt-6 pb-24">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
