@@ -104,7 +104,8 @@ const colorMap = {
     'Зелений': '#00FF00',
     'Чорний': '#000000',
     'Рожевий': '#FFC0CB',
-    'Срібний': '#C0C0C0'
+    'Срібний': '#C0C0C0',
+    'Прозорий': 'transparent'
 };
 function darkenColor(hex, amount = 20) {
     let color = hex.replace('#', '');
@@ -198,9 +199,8 @@ export default function CategoryFilter() {
 
 
     const slugToName = (slug) => {
-        // Преобразуем slug в нормальное название
         let name = slug.replace(/-/g, ' ');
-        name = name.replace(/\bZip\b /g, 'Zip-'); // дефис после Zip
+        name = name.replace(/\bZip\b /g, 'Zip-');
         return name;
     };
 
@@ -334,7 +334,7 @@ export default function CategoryFilter() {
                                                                     className="inline-block w-3 h-3 rounded-full border"
                                                                     style={{
                                                                         backgroundColor: colorMap[option.value],
-                                                                        borderColor: darkenColor(colorMap[option.value], 30)
+                                                                        borderColor: colorMap[option.value] === 'transparent' ? '#000000' : darkenColor(colorMap[option.value], 30)
                                                                     }}
                                                                 />
                                                             )}
