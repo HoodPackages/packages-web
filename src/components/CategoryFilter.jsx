@@ -1,8 +1,9 @@
 'use client'
-import ProductCard from './ProductCard'
+import ProductCard from './ProductCard';
 import { useState, useMemo } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { FaSpinner } from "react-icons/fa";
 import { usePackages } from "../data/usePackages";
+import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronDownIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
@@ -339,10 +340,17 @@ export default function CategoryFilter() {
                         </form>
 
                         <div className="lg:col-span-3">
-                            <div className="">
+                            {loading ? (
+                                <div className="flex justify-center items-center h-[50vh]">
+                                    <FaSpinner className="animate-spin text-indigo-600 text-3xl" />
+                                </div>
+                            ) : filteredAndSortedPackages.length === 0 ? (
+                                <p className="text-gray-500 text-lg">Нічого не знайдено</p>
+                            ) : (
                                 <ProductCard packages={filteredAndSortedPackages} />
-                            </div>
+                            )}
                         </div>
+
                     </div>
                 </section>
             </main>

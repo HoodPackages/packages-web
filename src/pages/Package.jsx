@@ -37,7 +37,7 @@ export default function Package() {
     if (!pack) {
         return (
             <div className="flex justify-center items-center h-[50vh] text-gray-600">
-                Package not found
+                Пакет не знайдено
             </div>
         );
     }
