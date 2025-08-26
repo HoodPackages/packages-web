@@ -122,7 +122,6 @@ function darkenColor(hex, amount = 20) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
-
 export default function CategoryFilter() {
     const navigate = useNavigate();
 
@@ -159,17 +158,11 @@ export default function CategoryFilter() {
             .filter(pkg => pkg.category === categoryName && pkg.subcategory)
             .map(pkg => pkg.subcategory);
 
-        return Array.from(new Set(subs)); // убираем дубли
+        return Array.from(new Set(subs));
     }, [packages, categoryName]);
 
     const filters = useMemo(() => {
-        const packagesInCategory = packages.filter(pkg => {
-            if (subCategoryName) {
-                return pkg.category === categoryName && pkg.subcategory === subCategoryName;
-            }
-            return pkg.category === categoryName;
-        });
-
+        const packagesInCategory = packages.filter(pkg => pkg.category === categoryName);
         const allFilters = generateFiltersFromPackages(packagesInCategory);
         return allFilters.filter(f => f.id !== 'category');
     }, [packages, categoryName, subCategoryName]);
@@ -197,7 +190,6 @@ export default function CategoryFilter() {
         });
     };
 
-
     const slugToName = (slug) => {
         let name = slug.replace(/-/g, ' ');
         name = name.replace(/\bZip\b /g, 'Zip-');
@@ -223,8 +215,6 @@ export default function CategoryFilter() {
 
         return sortPackages(filtered);
     }, [packages, selectedFilters, currentSort, categoryName, subCategoryName]);
-
-
 
     return (
         <div className="bg-white">
@@ -283,7 +273,6 @@ export default function CategoryFilter() {
                         })}
                     </div>
                 )}
-
 
                 <section aria-labelledby="products-heading" className="pt-6 pb-24">
                     <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
