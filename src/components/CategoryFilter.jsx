@@ -36,15 +36,6 @@ const generateFiltersFromPackages = (packages) => {
 
     return [
         {
-            id: 'category',
-            name: 'Категорія',
-            options: Array.from(categories).map((cat) => ({
-                value: cat,
-                label: cat,
-                checked: false,
-            })),
-        },
-        {
             id: 'size',
             name: 'Розмір',
             options: Array.from(sizes).map((size) => ({
