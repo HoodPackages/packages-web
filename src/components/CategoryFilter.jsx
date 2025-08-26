@@ -215,7 +215,7 @@ export default function CategoryFilter() {
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900">Категорія: {categoryName}</h1>
                     <div className="flex items-center">
                         <Menu as="div" className="relative inline-block text-left">
-                            <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 cursor-pointer">
                                 Сортувати
                                 <ChevronDownIcon
                                     aria-hidden="true"
