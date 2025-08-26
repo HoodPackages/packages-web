@@ -1,58 +1,63 @@
-import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
-import { usePackages } from "../data/usePackages"
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { usePackages } from "../data/usePackages";
 import { FaSpinner } from "react-icons/fa";
 import { useCartStore } from "../../store/cartStore";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Thumbs } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/thumbs";
 
 export default function Package() {
-    const { id } = useParams()
+    const { id } = useParams();
     const { packages, loading } = usePackages();
-    const [selectedOption, setSelectedOption] = useState("")
-    const [quantity, setQuantity] = useState(100)
-    const addToCart = useCartStore(state => state.addToCart);
+    const [selectedOption, setSelectedOption] = useState("");
+    const [quantity, setQuantity] = useState(100);
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const addToCart = useCartStore((state) => state.addToCart);
 
-    const pack = packages.find(p => p._id === id)
+    const pack = packages.find((p) => p._id === id);
 
     useEffect(() => {
         if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
-            const minQty = Math.min(...pack.price.map(p => p.minQty));
+            const minQty = Math.min(...pack.price.map((p) => p.minQty));
             setQuantity(minQty);
         }
     }, [pack]);
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-[200px]">
-                <div className="flex items-center gap-3 text-lg text-gray-500">
-                    <FaSpinner className="animate-spin h-6 w-6" />
-                    <span>Завантаження...</span>
-                </div>
+            <div className="flex justify-center items-center h-[50vh]">
+                <FaSpinner className="animate-spin text-indigo-600 text-3xl" />
             </div>
         );
     }
-    if (!pack) return <div className="text-center mt-10 text-xl">Пакет не знайдено</div>
+
+    if (!pack) {
+        return (
+            <div className="flex justify-center items-center h-[50vh] text-gray-600">
+                Package not found
+            </div>
+        );
+    }
 
     const getBaseUnitPrice = () => {
         if (!Array.isArray(pack.price) || pack.price.length === 0) return 0;
-
         const sorted = [...pack.price].sort((a, b) => b.minQty - a.minQty);
-        const level = sorted.find(p => quantity >= p.minQty) || sorted[sorted.length - 1];
-
+        const level = sorted.find((p) => quantity >= p.minQty) || sorted[sorted.length - 1];
         return level.price;
-    }
+    };
 
     const getUnitPrice = () => {
         const basePrice = getBaseUnitPrice();
-
         let printPrice = 0;
         if (selectedOption && Array.isArray(pack.printOptions)) {
-            const filtered = pack.printOptions.filter(p => p.code === selectedOption);
+            const filtered = pack.printOptions.filter((p) => p.code === selectedOption);
             const sorted = filtered.sort((a, b) => b.quantity - a.quantity);
-            const matching = sorted.find(p => quantity >= p.quantity) || sorted[sorted.length - 1];
-
+            const matching = sorted.find((p) => quantity >= p.quantity) || sorted[sorted.length - 1];
             printPrice = matching?.price || 0;
         }
-
         return basePrice + printPrice;
     };
 
@@ -64,85 +69,112 @@ export default function Package() {
             name: pack.name + (selectedOption ? ` (${selectedOption})` : ""),
             image: pack.images?.[0],
             price: getUnitPrice(),
-            quantity
+            quantity,
         });
     };
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-10">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">{pack.name}</h1>
+        <section className="py-10 lg:py-20 relative">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    {/* LEFT SIDE — PRODUCT INFO */}
+                    <div className="flex flex-col justify-start order-last lg:order-none lg:pr-8">
+                        <h2 className="mb-3 font-bold text-3xl leading-10 text-gray-900">
+                            {pack.name}
+                        </h2>
 
-            <img
-                src={pack.images?.[0]}
-                alt={pack.name}
-                className="w-full max-h-72 object-contain mb-6 rounded"
-            />
+                        {/* Уменьшенный отступ на телефоне */}
+                        <p className="text-gray-500 text-base font-normal mb-4 sm:mb-6">
+                            {pack.description}
+                        </p>
 
-            <p className="text-gray-600 mb-6">{pack.description}</p>
+                        {/* ВАРИАНТЫ ПЕЧАТИ */}
+                        <div className="mb-6">
+                            <p className="font-medium text-lg text-gray-900 mb-4">Виберіть варіант друку:</p>
+                            <div className="flex flex-wrap gap-3">
+                                <button
+                                    onClick={() => setSelectedOption("")}
+                                    className={`px-4 py-2 rounded-full border ${selectedOption === ""
+                                        ? "bg-indigo-600 text-white border-indigo-600"
+                                        : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+                                        }`}
+                                >
+                                    Без друку
+                                </button>
+                                {[...new Set(pack.printOptions.map((p) => p.code))].map((code) => (
+                                    <button
+                                        key={code}
+                                        onClick={() => setSelectedOption(code)}
+                                        className={`px-4 py-2 rounded-full border ${selectedOption === code
+                                            ? "bg-indigo-600 text-white border-indigo-600"
+                                            : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+                                            }`}
+                                    >
+                                        {code}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-            <div>
-                <h2 className="text-lg font-medium mb-3">Виберіть варіант друку:</h2>
-                <div className="flex flex-wrap gap-3">
-                    <button
-                        onClick={() => setSelectedOption("")}
-                        className={`px-4 py-2 rounded border ${selectedOption === ""
-                            ? "bg-blue-600 text-white border-blue-600"
-                            : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-                            }`}
-                    >
-                        Без друку
-                    </button>
+                        {/* КОЛИЧЕСТВО */}
+                        <div className="mb-6">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Кількість (шт.):
+                            </label>
+                            <input
+                                type="number"
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                onBlur={() => {
+                                    const val = Number(quantity);
+                                    const minQtyFromPack = Math.min(...pack.price.map((p) => p.minQty));
+                                    if (isNaN(val) || val < minQtyFromPack) {
+                                        setQuantity(minQtyFromPack);
+                                    } else {
+                                        setQuantity(val);
+                                    }
+                                }}
+                                className="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm appearance-none
+                [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
+                            />
+                        </div>
 
-                    {[...new Set(pack.printOptions.map(p => p.code))].map(code => (
+                        {/* ЦЕНЫ */}
+                        <div className="mb-4 text-xl font-bold text-inherit">
+                            Ціна за 1 шт: {getUnitPrice().toFixed(2)} грн
+                        </div>
+
+                        {/* КНОПКА */}
                         <button
-                            key={code}
-                            onClick={() => setSelectedOption(code)}
-                            className={`px-4 py-2 rounded border transition-all duration-200 ${selectedOption === code
-                                ? "bg-blue-600 text-white border-blue-600"
-                                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-                                }`}
+                            onClick={handleAddToCart}
+                            className="w-full py-4 rounded-full bg-yellow-500 text-white font-semibold text-lg shadow-sm hover:bg-yellow-600 transition"
                         >
-                            {code}
+                            Додати в кошик
                         </button>
-                    ))}
+                    </div>
+
+                    {/* RIGHT SIDE — IMAGES */}
+                    <div className="w-full lg:max-w-[450px] lg:ml-16">
+                        <Swiper
+                            loop
+                            spaceBetween={24}
+                            modules={[Thumbs]}
+                            thumbs={{ swiper: thumbsSwiper }}
+                            className="mb-6"
+                        >
+                            {pack.images?.map((img, idx) => (
+                                <SwiperSlide key={idx}>
+                                    <img
+                                        src={img}
+                                        alt="Product"
+                                        className="w-full h-auto object-contain rounded-lg"
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
                 </div>
             </div>
-
-            <div className="mt-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Кількість (шт.):
-                </label>
-                <input
-                    type="number"
-                    value={quantity}
-                    onChange={e => setQuantity(e.target.value)}
-                    onBlur={() => {
-                        const val = Number(quantity);
-                        const minQtyFromPack = Math.min(...pack.price.map(p => p.minQty));
-
-                        if (isNaN(val) || val < minQtyFromPack) {
-                            setQuantity(minQtyFromPack);
-                        } else {
-                            setQuantity(val);
-                        }
-                    }}
-                    className="w-32 px-3 py-2 border border-gray-300 rounded shadow-sm appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]" />
-            </div>
-
-            <div className="mt-6 text-xl font-bold text-blue-700">
-                Ціна за штуку: {getUnitPrice().toFixed(2)} грн
-            </div>
-
-            <div className="mt-1 text-2xl font-bold text-green-700">
-                Підсумкова ціна: {totalPrice} грн
-            </div>
-
-            <button
-                onClick={handleAddToCart}
-                className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-200"
-            >
-                Додати в кошик
-            </button>
-        </div>
-    )
+        </section>
+    );
 }
