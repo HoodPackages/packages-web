@@ -101,9 +101,10 @@ const colorMap = {
     'Жовтий': '#FFFF00',
     'Червоний': '#FF0000',
     'Синій': '#0000FF',
-    'Серебро': '#00FF00',
+    'Зелений': '#00FF00',
     'Чорний': '#000000',
     'Рожевий': '#FFC0CB',
+    'Срібний': '#C0C0C0'
 };
 function darkenColor(hex, amount = 20) {
     let color = hex.replace('#', '');
