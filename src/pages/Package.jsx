@@ -77,18 +77,15 @@ export default function Package() {
         <section className="py-10 lg:py-20 relative">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                    {/* LEFT SIDE — PRODUCT INFO */}
                     <div className="flex flex-col justify-start order-last lg:order-none lg:pr-8">
                         <h2 className="mb-3 font-bold text-3xl leading-10 text-gray-900">
                             {pack.name}
                         </h2>
 
-                        {/* Уменьшенный отступ на телефоне */}
                         <p className="text-gray-500 text-base font-normal mb-4 sm:mb-6">
                             {pack.description}
                         </p>
 
-                        {/* ВАРИАНТЫ ПЕЧАТИ */}
                         <div className="mb-6">
                             <p className="font-medium text-lg text-gray-900 mb-4">Виберіть варіант друку:</p>
                             <div className="flex flex-wrap gap-3">
@@ -116,7 +113,6 @@ export default function Package() {
                             </div>
                         </div>
 
-                        {/* КОЛИЧЕСТВО */}
                         <div className="mb-6">
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Кількість (шт.):
@@ -139,12 +135,10 @@ export default function Package() {
                             />
                         </div>
 
-                        {/* ЦЕНЫ */}
                         <div className="mb-4 text-xl font-bold text-inherit">
                             Ціна за 1 шт: {getUnitPrice().toFixed(2)} грн
                         </div>
 
-                        {/* КНОПКА */}
                         <button
                             onClick={handleAddToCart}
                             className="w-full py-4 rounded-full bg-yellow-500 text-white font-semibold text-lg shadow-sm hover:bg-yellow-600 transition"
@@ -153,7 +147,6 @@ export default function Package() {
                         </button>
                     </div>
 
-                    {/* RIGHT SIDE — IMAGES */}
                     <div className="w-full lg:max-w-[450px] lg:ml-16">
                         <Swiper
                             loop

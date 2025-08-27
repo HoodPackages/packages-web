@@ -40,14 +40,11 @@ export default function PaymentPage() {
         throw new Error("Помилка при генерації PDF");
       }
 
-      // Получаем blob PDF
       const blob = await response.blob();
 
-      // Создаем URL для скачивания
       const url = window.URL.createObjectURL(blob);
       setPdfUrl(url);
 
-      // Можно сразу открыть PDF в новой вкладке
       window.open(url);
 
       setLoading(false);
@@ -189,12 +186,12 @@ export default function PaymentPage() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
-            onClick={handlePaymentSuccess}
-            disabled={loading}
-            className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition w-full sm:w-auto"
+            onClick={() => navigate("/order-success")}
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto"
           >
-            {loading ? "Генеруємо PDF..." : "Оплатити"}
+            Завершити замовлення
           </button>
+
           <button
             onClick={handlePaymentFailure}
             className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto"
@@ -203,19 +200,40 @@ export default function PaymentPage() {
           </button>
         </div>
 
-        {pdfUrl && (
-          <div className="mt-6 text-center">
-            <a
-              href={pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-yellow-600 underline font-semibold"
-              download="invoice.pdf"
-            >
-              Завантажити рахунок-фактуру (PDF)
-            </a>
-          </div>
-        )}
+        {/* ссылки на PDF под кнопками */}
+        <div className="mt-4 flex flex-col items-center gap-2 text-center">
+          <a
+            href={pdfUrl || "#"}
+            onClick={(e) => {
+              if (!pdfUrl) {
+                e.preventDefault();
+                handlePaymentSuccess();
+              }
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-yellow-600 underline font-semibold hover:text-yellow-700"
+            download={pdfUrl ? "invoice.pdf" : undefined}
+          >
+            {loading ? "Генеруємо PDF..." : "Завантажити рахунок-фактуру"}
+          </a>
+
+          <a
+            href={pdfUrl || "#"}
+            onClick={(e) => {
+              if (!pdfUrl) {
+                e.preventDefault();
+                handlePaymentSuccess();
+              }
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-yellow-600 underline font-semibold hover:text-yellow-700"
+          >
+            {loading ? "Генеруємо PDF..." : "Відкрити рахунок-фактуру"}
+          </a>
+        </div>
+
 
       </div>
     </div>

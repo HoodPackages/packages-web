@@ -7,7 +7,6 @@ export default function OrderSuccessPage() {
   const clearCart = useCartStore(state => state.clearCart);
 
   useEffect(() => {
-    // Очищаем корзину при монтировании компонента
     clearCart();
   }, [clearCart]);
 
