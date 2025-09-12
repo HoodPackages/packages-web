@@ -29,14 +29,14 @@ export default function Package() {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
-                <FaSpinner className="animate-spin text-indigo-600 text-3xl" />
+                <FaSpinner className="animate-spin text-indigo-600 text-4xl" />
             </div>
         );
     }
 
     if (!pack) {
         return (
-            <div className="flex justify-center items-center h-[50vh] text-gray-600">
+            <div className="flex justify-center items-center h-[50vh] text-gray-600 text-lg font-medium">
                 Пакет не знайдено
             </div>
         );
@@ -74,37 +74,44 @@ export default function Package() {
     };
 
     return (
-        <section className="py-10 lg:py-20 relative">
+        <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                    <div className="flex flex-col justify-start order-last lg:order-none lg:pr-8">
-                        <h2 className="mb-3 font-bold text-3xl leading-10 text-gray-900">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+                    {/* LEFT CONTENT */}
+                    <div className="flex flex-col lg:pr-10">
+                        <h2 className="mb-4 font-extrabold text-4xl lg:text-5xl leading-tight text-gray-900 tracking-tight">
                             {pack.name}
                         </h2>
 
-                        <p className="text-gray-500 text-base font-normal mb-4 sm:mb-6">
+                        <p className="text-gray-600 text-base leading-relaxed mb-8">
                             {pack.description}
                         </p>
 
-                        <div className="mb-6">
-                            <p className="font-medium text-lg text-gray-900 mb-4">Виберіть варіант друку:</p>
-                            <div className="flex flex-wrap gap-3">
+
+                        {/* PRINT OPTIONS */}
+                        <div className="mb-8">
+                            <p className="font-semibold text-lg text-gray-900 mb-3">
+                                Виберіть варіант друку:
+                            </p>
+                            <div className="flex flex-wrap gap-3 max-h-[220px] overflow-y-auto">
                                 <button
                                     onClick={() => setSelectedOption("")}
-                                    className={`px-4 py-2 rounded-full border ${selectedOption === ""
-                                        ? "bg-indigo-600 text-white border-indigo-600"
-                                        : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+                                    className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === ""
+                                            ? "bg-indigo-600 text-white border-indigo-600"
+                                            : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                                         }`}
                                 >
                                     Без друку
                                 </button>
+
                                 {[...new Set(pack.printOptions.map((p) => p.code))].map((code) => (
                                     <button
                                         key={code}
                                         onClick={() => setSelectedOption(code)}
-                                        className={`px-4 py-2 rounded-full border ${selectedOption === code
-                                            ? "bg-indigo-600 text-white border-indigo-600"
-                                            : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+                                        className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === code
+                                                ? "bg-indigo-600 text-white border-indigo-600"
+                                                : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                                             }`}
                                     >
                                         {code}
@@ -113,8 +120,9 @@ export default function Package() {
                             </div>
                         </div>
 
-                        <div className="mb-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                        {/* QUANTITY */}
+                        <div className="mb-8">
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 Кількість (шт.):
                             </label>
                             <input
@@ -130,36 +138,39 @@ export default function Package() {
                                         setQuantity(val);
                                     }
                                 }}
-                                className="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm appearance-none
-                [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
+                                className="w-32 px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-center text-base font-medium"
                             />
                         </div>
 
-                        <div className="mb-4 text-xl font-bold text-inherit">
-                            Ціна за 1 шт: {getUnitPrice().toFixed(2)} грн
+                        {/* PRICE */}
+                        <div className="mb-6 text-2xl font-extrabold text-gray-900">
+                            Ціна за 1 шт:{" "}
+                            <span className="text-indigo-600">{getUnitPrice().toFixed(2)} грн</span>
                         </div>
 
+                        {/* BUTTON */}
                         <button
                             onClick={handleAddToCart}
-                            className="w-full py-4 rounded-full bg-yellow-500 text-white font-semibold text-lg shadow-sm hover:bg-yellow-600 transition"
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all"
                         >
-                            Додати в кошик
+                            Додати в кошик — {totalPrice} грн
                         </button>
                     </div>
 
-                    <div className="w-full lg:max-w-[450px] lg:ml-16">
+                    {/* RIGHT CONTENT (IMAGES) */}
+                    <div className="w-full lg:max-w-[500px] lg:ml-auto bg-white rounded-2xl shadow-lg p-6">
                         <Swiper
                             loop
                             spaceBetween={24}
                             modules={[Thumbs]}
                             thumbs={{ swiper: thumbsSwiper }}
-                            className="mb-6"
+                            className="mb-6 rounded-xl overflow-hidden"
                         >
                             {pack.images?.map((img, idx) => (
                                 <SwiperSlide key={idx}>
                                     <img
                                         src={img}
-                                        alt="Product"
+                                        alt={pack.name}
                                         className="w-full h-auto object-contain rounded-lg"
                                     />
                                 </SwiperSlide>
