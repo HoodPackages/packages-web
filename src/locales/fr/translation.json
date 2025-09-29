@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "subtitle": "Impression sur mesure pour votre marque",
+    "title": "Sacs, boîtes, t-shirts et plus",
+    "description": "Nous imprimons et fournissons des produits pour les entreprises et les cadeaux",
+    "catalogBtn": "Vers le catalogue",
+    "paymentInfo": "Découvrez les types de paiement :",
+    "paymentLink": "Paiement"
+  },
+  "category": {
+    "title": "Catégories",
+    "subtitle": "Nous avons préparé différents packs de produits — choisissez la catégorie qui vous convient le mieux.",
+    "loading": "Chargement des catégories...",
+    "showAll": "Voir tout",
+    "noCategory": "Sans catégorie",
+    "productsCount": "Produits : {{count}}"
+  },
+  "contact": {
+    "subtitle": "Vous pouvez nous contacter de la manière qui vous convient",
+    "title": "RESTEZ EN CONTACT",
+    "desc1": "Merci de nous rendre visite ! Nous sommes des professionnels dans la vente de sacs de haute qualité de différents formats et dans leur impression. Nous sommes prêts à vous aider à choisir la meilleure option pour votre entreprise ou événement.",
+    "desc2": "Si vous avez des questions, besoin de conseils ou souhaitez passer une commande, contactez-nous de manière pratique :",
+    "addressTitle": "Nous sommes situés à",
+    "address": "Dnipro, région de Dnipropetrovsk, Ukraine",
+    "phoneTitle": "Numéro de téléphone",
+    "phone": "+380 (99) 129 00 29",
+    "emailTitle": "E-mail",
+    "email": "kuliok.ukraine@gmail.com",
+    "partners": "Nous sommes toujours ravis de collaborer et de proposer des conditions individuelles à nos partenaires.",
+    "form": {
+      "name": "Votre nom",
+      "email": "Votre e-mail",
+      "phone": "Votre numéro de téléphone",
+      "subject": "Objet",
+      "message": "Votre message",
+      "send": "Envoyer",
+      "sending": "Envoi..."
+    },
+    "validation": "Veuillez saisir une adresse e-mail ou un numéro de téléphone.",
+    "success": "Votre message a été envoyé !",
+    "error": "Erreur lors de l'envoi du message."
+  },
+  "about": {
+    "title": "À propos de nous",
+    "subtitle": "Qualité. Style. Votre marque sur tout.",
+    "mission": {
+      "title": "Notre mission",
+      "text": "Nous créons des solutions uniques et élégantes pour le branding de vos produits — des sacs et boîtes aux vêtements et accessoires. Notre objectif est que votre entreprise soit visible et reconnaissable.",
+      "imageAlt": "Exemple de branding"
+    },
+    "values": {
+      "title": "Nos valeurs",
+      "quality": "Haute qualité d'impression",
+      "individual": "Approche individuelle",
+      "deadlines": "Respect des délais",
+      "design": "Design élégant et moderne"
+    },
+    "history": {
+      "title": "Notre histoire",
+      "text": "Depuis 2015, nous aidons les entreprises à se démarquer de la concurrence grâce à un branding unique. Pendant ce temps, nous avons réalisé plus de 2000 projets réussis pour des clients de différents secteurs."
+    }
+  },
+  "pantone": {
+    "title": "Couleurs Pantone",
+    "searchPlaceholder": "Rechercher une couleur...",
+    "searchAria": "Rechercher une couleur",
+    "notFound": "Couleurs non trouvées",
+    "colorAria": "{{name}}, Pantone {{pantone}}",
+    "copyAria": "Copier HEX {{hex}}",
+    "copied": "Copié !",
+    "groups": {
+      "blue": "Bleu",
+      "red_orange": "Rouge/Orange",
+      "violet": "Violet",
+      "yellow": "Jaune",
+      "green": "Vert",
+      "brown": "Marron",
+      "pink": "Rose",
+      "gray": "Gris",
+      "white": "Blanc",
+      "black": "Noir",
+      "turquoise": "Turquoise"
+    }
+  },
+  "header": {
+    "catalog": "Catalogue",
+    "contact": "Contacts",
+    "about": "À propos",
+    "payment": "Paiement",
+    "pantoneColors": "Couleurs Pantone",
+    "login": "Connexion"
+  }
+}

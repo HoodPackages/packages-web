@@ -1,0 +1,93 @@
+{
+  "hero": {
+    "subtitle": "Druck nach Maß für Ihre Marke",
+    "title": "Tüten, Boxen, T-Shirts und mehr",
+    "description": "Wir drucken und liefern Produkte für Unternehmen und Geschenke",
+    "catalogBtn": "Zum Katalog",
+    "paymentInfo": "Informationen zu Zahlungsarten:",
+    "paymentLink": "Zahlung"
+  },
+  "category": {
+    "title": "Kategorien",
+    "subtitle": "Wir haben verschiedene Produktpakete vorbereitet — wählen Sie die Kategorie, die am besten zu Ihnen passt.",
+    "loading": "Kategorien werden geladen...",
+    "showAll": "Alle anzeigen",
+    "noCategory": "Keine Kategorie",
+    "productsCount": "Produkte: {{count}}"
+  },
+  "contact": {
+    "subtitle": "Sie können uns auf jede für Sie bequeme Weise kontaktieren",
+    "title": "BLEIBEN SIE IN KONTAKT",
+    "desc1": "Vielen Dank für Ihren Besuch! Wir sind Profis im Verkauf qualitativ hochwertiger Verpackungen in verschiedenen Formaten und beim Bedrucken. Wir helfen Ihnen gerne, die beste Lösung für Ihr Unternehmen oder Event zu wählen.",
+    "desc2": "Wenn Sie Fragen haben, Beratung benötigen oder eine Bestellung aufgeben möchten, kontaktieren Sie uns auf bequeme Weise:",
+    "addressTitle": "Wir befinden uns in",
+    "address": "Dnipro, Oblast Dnipropetrowsk, Ukraine",
+    "phoneTitle": "Telefonnummer",
+    "phone": "+380 (99) 129 00 29",
+    "emailTitle": "E-Mail",
+    "email": "kuliok.ukraine@gmail.com",
+    "partners": "Wir freuen uns immer über Zusammenarbeit und bieten unseren Partnern individuelle Bedingungen.",
+    "form": {
+      "name": "Ihr Name",
+      "email": "Ihre E-Mail-Adresse",
+      "phone": "Ihre Telefonnummer",
+      "subject": "Betreff",
+      "message": "Ihre Nachricht",
+      "send": "Senden",
+      "sending": "Senden..."
+    },
+    "validation": "Bitte geben Sie eine E-Mail-Adresse oder Telefonnummer ein.",
+    "success": "Ihre Nachricht wurde gesendet!",
+    "error": "Fehler beim Senden der Nachricht."
+  },
+  "about": {
+    "title": "Über uns",
+    "subtitle": "Qualität. Stil. Ihre Marke auf allem.",
+    "mission": {
+      "title": "Unsere Mission",
+      "text": "Wir erstellen einzigartige und stilvolle Lösungen für die Markenbildung Ihrer Produkte — von Taschen und Boxen bis zu Kleidung und Accessoires. Unser Ziel ist es, dass Ihr Unternehmen auffällig und wiedererkennbar wirkt.",
+      "imageAlt": "Branding-Beispiel"
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "quality": "Hohe Druckqualität",
+      "individual": "Individueller Ansatz",
+      "deadlines": "Einhaltung von Fristen",
+      "design": "Stilvolles und modernes Design"
+    },
+    "history": {
+      "title": "Unsere Geschichte",
+      "text": "Seit 2015 helfen wir Unternehmen, sich durch einzigartiges Branding von der Konkurrenz abzuheben. In dieser Zeit haben wir über 2000 erfolgreiche Projekte für Kunden aus verschiedenen Branchen umgesetzt."
+    }
+  },
+  "pantone": {
+    "title": "Pantone-Farben",
+    "searchPlaceholder": "Farbe suchen...",
+    "searchAria": "Farbe suchen",
+    "notFound": "Farben nicht gefunden",
+    "colorAria": "{{name}}, Pantone {{pantone}}",
+    "copyAria": "HEX {{hex}} kopieren",
+    "copied": "Kopiert!",
+    "groups": {
+      "blue": "Blau",
+      "red_orange": "Rot/Orange",
+      "violet": "Violett",
+      "yellow": "Gelb",
+      "green": "Grün",
+      "brown": "Braun",
+      "pink": "Rosa",
+      "gray": "Grau",
+      "white": "Weiß",
+      "black": "Schwarz",
+      "turquoise": "Türkis"
+    }
+  },
+  "header": {
+    "catalog": "Katalog",
+    "contact": "Kontakte",
+    "about": "Über uns",
+    "payment": "Zahlung",
+    "pantoneColors": "Pantone-Farben",
+    "login": "Einloggen"
+  }
+}
