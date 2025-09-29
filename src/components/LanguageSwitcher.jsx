@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import UsaFlag from "../assets/flags/us.png";
 import UaFlag from "../assets/flags/ua.png";
@@ -18,22 +18,22 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const savedLang = localStorage.getItem("lang");
-    if (savedLang && LANGS.some((l) => l.code === savedLang)) {
-      i18n.changeLanguage(savedLang);
-    } else {
-      const browserLang = navigator.language.slice(0, 2).toLowerCase();
-      const matchedLang =
-        browserLang === "uk"
-          ? "ua"
-          : LANGS.some((l) => l.code === browserLang)
-          ? browserLang
-          : "en";
-      i18n.changeLanguage(matchedLang);
-      localStorage.setItem("lang", matchedLang);
-    }
-  }, [i18n]);
+  // --- Устанавливаем язык **сразу при инициализации** ---
+  let initialLang = localStorage.getItem("lang");
+
+  if (!initialLang || !LANGS.some((l) => l.code === initialLang)) {
+    const browserLang = navigator.language.slice(0, 2).toLowerCase();
+    if (browserLang === "uk" || browserLang === "ru") initialLang = "ua";
+    else if (LANGS.some((l) => l.code === browserLang)) initialLang = browserLang;
+    else initialLang = "en";
+
+    localStorage.setItem("lang", initialLang);
+  }
+
+  // Меняем язык i18n сразу
+  if (i18n.language !== initialLang) {
+    i18n.changeLanguage(initialLang);
+  }
 
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
