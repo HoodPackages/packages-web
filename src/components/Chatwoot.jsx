@@ -25,11 +25,20 @@ export default function Chatwoot() {
         script.defer = true;
 
         script.onload = () => {
+            let lang = localStorage.getItem('lang');
+
+            if (!lang) {
+                const browserLang = navigator.language.slice(0, 2).toLowerCase();
+                lang = browserLang;
+            }
+
+            if (lang === 'ua') lang = 'uk';
+
             window.chatwootSettings = {
                 hideMessageBubble: false,
                 showUnreadMessagesDialog: true,
                 position: "right",
-                locale: "uk",
+                locale: lang,
                 useBrowserLanguage: false,
                 type: "bubble",
                 launcherTitle: "Чат з нами",
