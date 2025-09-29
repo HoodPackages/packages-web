@@ -54,16 +54,18 @@ export default function LanguageSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-36 bg-white rounded-xl shadow-lg z-50 overflow-hidden">
+        <div
+          className="absolute right-0 mt-2 w-36 max-w-[90vw] bg-white rounded-xl shadow-lg z-50 overflow-hidden
+                 sm:right-0 sm:w-36" // для больших экранов
+        >
           {LANGS.map((lang) => (
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang.code)}
-              className={`flex items-center gap-2 w-full px-4 py-2 text-sm text-left ${
-                lang.code === currentLangObj.code
+              className={`flex items-center gap-2 w-full px-4 py-2 text-sm text-left ${lang.code === currentLangObj.code
                   ? "font-bold text-yellow-400"
                   : "text-gray-700"
-              } hover:bg-yellow-400 hover:text-black`}
+                } hover:bg-yellow-400 hover:text-black`}
             >
               <img src={lang.flag} alt={lang.label} className="w-5 h-5" />
               <span>{lang.label}</span>
