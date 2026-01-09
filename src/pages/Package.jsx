@@ -5,6 +5,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useCartStore } from "../../store/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs } from "swiper/modules";
+import { usePageTranslation } from "../i18n/usePageTranslation";
 
 import "swiper/css";
 import "swiper/css/thumbs";
@@ -25,7 +26,17 @@ export default function Package() {
             setQuantity(minQty);
         }
     }, [pack]);
-
+    
+    const pageTexts = {
+        notFound: "Пакет не знайдено",
+        choosePrint: "Виберіть варіант друку:",
+        noPrint: "Без друку",
+        quantity: "Кількість (шт.):",
+        pricePerUnit: "Ціна за 1 шт:",
+        addToCart: "Додати в кошик"
+    };
+    const t = usePageTranslation(pageTexts);
+    
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
@@ -73,6 +84,8 @@ export default function Package() {
         });
     };
 
+
+
     return (
         <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -92,17 +105,17 @@ export default function Package() {
                         {/* PRINT OPTIONS */}
                         <div className="mb-8">
                             <p className="font-semibold text-lg text-gray-900 mb-3">
-                                Виберіть варіант друку:
+                                {t.choosePrint}
                             </p>
                             <div className="flex flex-wrap gap-3 max-h-[220px] overflow-y-auto">
                                 <button
                                     onClick={() => setSelectedOption("")}
                                     className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === ""
-                                            ? "bg-indigo-600 text-white border-indigo-600"
-                                            : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+                                        ? "bg-indigo-600 text-white border-indigo-600"
+                                        : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                                         }`}
                                 >
-                                    Без друку
+                                    {t.noPrint}
                                 </button>
 
                                 {[...new Set(pack.printOptions.map((p) => p.code))].map((code) => (
@@ -110,8 +123,8 @@ export default function Package() {
                                         key={code}
                                         onClick={() => setSelectedOption(code)}
                                         className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === code
-                                                ? "bg-indigo-600 text-white border-indigo-600"
-                                                : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+                                            ? "bg-indigo-600 text-white border-indigo-600"
+                                            : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                                             }`}
                                     >
                                         {code}
@@ -123,7 +136,7 @@ export default function Package() {
                         {/* QUANTITY */}
                         <div className="mb-8">
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Кількість (шт.):
+                                {t.quantity}
                             </label>
                             <input
                                 type="number"
@@ -144,8 +157,8 @@ export default function Package() {
 
                         {/* PRICE */}
                         <div className="mb-6 text-2xl font-extrabold text-gray-900">
-                            Ціна за 1 шт:{" "}
-                            <span className="text-indigo-600">{getUnitPrice().toFixed(2)} грн</span>
+                            {t.pricePerUnit}{" "}
+                            <span>{getUnitPrice().toFixed(2)} грн</span>
                         </div>
 
                         {/* BUTTON */}
@@ -153,7 +166,7 @@ export default function Package() {
                             onClick={handleAddToCart}
                             className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all"
                         >
-                            Додати в кошик — {totalPrice} грн
+                            {t.addToCart} — {totalPrice} грн
                         </button>
                     </div>
 
