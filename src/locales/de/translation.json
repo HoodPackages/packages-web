@@ -89,5 +89,13 @@
     "payment": "Zahlung",
     "pantoneColors": "Pantone-Farben",
     "login": "Einloggen"
+  },
+  "footer": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "payment": "Zahlung",
+    "contact": "Kontakt",
+    "help": "Hilfe",
+    "rights": "Alle Rechte vorbehalten"
   }
 }

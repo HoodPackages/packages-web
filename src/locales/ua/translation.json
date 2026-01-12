@@ -89,5 +89,12 @@
         "payment": "Оплата",
         "pantoneColors": "Кольори Pantone",
         "login": "Увійти"
+    },
+    "footer": {
+        "main": "Головна",
+        "about": "Про нас",
+        "payment": "Оплата",
+        "contact": "Контакти",
+        "help": "Допомога"
     }
 }

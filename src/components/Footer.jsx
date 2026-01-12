@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer
       className="
@@ -11,11 +14,11 @@ export default function Footer() {
       {/* Навигация */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-6 w-full max-w-screen-md justify-center mx-auto text-center">
         {[
-          { label: "Головна", to: "/" },
-          { label: "Про нас", to: "/about" },
-          { label: "Оплата", to: "/payment" },
-          { label: "Контакти", to: "/contactUs" },
-          { label: "Допомога", to: "/help" },
+          { label: t("footer.home"), to: "/" },
+          { label: t("footer.about"), to: "/about" },
+          { label: t("footer.payment"), to: "/payment" },
+          { label: t("footer.contact"), to: "/contactUs" },
+          { label: t("footer.help"), to: "/help" },
         ].map(({ label, to }) => (
           <Link
             key={label}
@@ -135,13 +138,12 @@ export default function Footer() {
         </a>
       </div>
 
-      {/* Копирайт */}
       <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full mx-auto">
         Copyright © {new Date().getFullYear()}{" "}
         <span className="underline hover:text-yellow-400 cursor-pointer">
           Kuliok
         </span>
-        . Усі права захищено.
+        . {t("footer.rights")}
       </p>
     </footer>
   );
