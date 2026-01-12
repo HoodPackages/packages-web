@@ -6,6 +6,7 @@ import { useCartStore } from "../../store/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs } from "swiper/modules";
 import { usePageTranslation } from "../i18n/usePageTranslation";
+import { useTranslatedValue } from "../i18n/useTranslatedValue";
 
 import "swiper/css";
 import "swiper/css/thumbs";
@@ -20,13 +21,16 @@ export default function Package() {
 
     const pack = packages.find((p) => p._id === id);
 
+    const translatedName = useTranslatedValue(pack?.name);
+    const translatedDescription = useTranslatedValue(pack?.description);
+
     useEffect(() => {
         if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
             const minQty = Math.min(...pack.price.map((p) => p.minQty));
             setQuantity(minQty);
         }
     }, [pack]);
-    
+
     const pageTexts = {
         notFound: "Пакет не знайдено",
         choosePrint: "Виберіть варіант друку:",
@@ -36,7 +40,7 @@ export default function Package() {
         addToCart: "Додати в кошик"
     };
     const t = usePageTranslation(pageTexts);
-    
+
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
@@ -94,11 +98,11 @@ export default function Package() {
                     {/* LEFT CONTENT */}
                     <div className="flex flex-col lg:pr-10">
                         <h2 className="mb-4 font-extrabold text-4xl lg:text-5xl leading-tight text-gray-900 tracking-tight">
-                            {pack.name}
+                            {translatedName}
                         </h2>
 
                         <p className="text-gray-600 text-base leading-relaxed mb-8">
-                            {pack.description}
+                            {translatedDescription}
                         </p>
 
 

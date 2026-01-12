@@ -15,7 +15,7 @@ export function usePageTranslation(sourceTexts = {}) {
       }
 
       const result = {};
-
+      console.log(Object.keys(sourceTexts))
       for (const key of Object.keys(sourceTexts)) {
         result[key] = await translateText(sourceTexts[key], "uk", lang);
       }

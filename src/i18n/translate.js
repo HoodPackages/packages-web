@@ -6,7 +6,9 @@ export async function translateText(text, from = "uk", to = "uk") {
 
   const cacheKey = `i18n:${from}:${to}:${text}`;
   const cached = localStorage.getItem(cacheKey);
-  if (cached) return cached;
+  if (cached && cached !== text) return cached;
+
+  console.log("i'm here on a client")
 
   const res = await fetch(translate_API_URL, {
     method: "POST",
