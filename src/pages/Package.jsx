@@ -44,14 +44,14 @@ export default function Package() {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[50vh]">
-                <FaSpinner className="animate-spin text-indigo-600 text-4xl" />
+                <FaSpinner className="animate-spin text-indigo-600 text-3xl" />
             </div>
         );
     }
 
     if (!pack) {
         return (
-            <div className="flex justify-center items-center h-[50vh] text-gray-600 text-lg font-medium">
+            <div className="flex justify-center items-center h-[50vh] text-gray-600">
                 Пакет не знайдено
             </div>
         );
@@ -91,8 +91,9 @@ export default function Package() {
 
 
     return (
-        <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-10 lg:py-20 relative">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<<<<<<< HEAD
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
                     {/* LEFT CONTENT */}
@@ -117,18 +118,43 @@ export default function Package() {
                                     className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === ""
                                         ? "bg-indigo-600 text-white border-indigo-600"
                                         : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+=======
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                    <div className="flex flex-col justify-start order-last lg:order-none lg:pr-8">
+                        <h2 className="mb-3 font-bold text-3xl leading-10 text-gray-900">
+                            {pack.name}
+                        </h2>
+
+                        <p className="text-gray-500 text-base font-normal mb-4 sm:mb-6">
+                            {pack.description}
+                        </p>
+
+                        <div className="mb-6">
+                            <p className="font-medium text-lg text-gray-900 mb-4">Виберіть варіант друку:</p>
+                            <div className="flex flex-wrap gap-3">
+                                <button
+                                    onClick={() => setSelectedOption("")}
+                                    className={`px-4 py-2 rounded-full border ${selectedOption === ""
+                                        ? "bg-indigo-600 text-white border-indigo-600"
+                                        : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+>>>>>>> parent of 6f5dd0f (Update Package.jsx)
                                         }`}
                                 >
                                     {t.noPrint}
                                 </button>
-
                                 {[...new Set(pack.printOptions.map((p) => p.code))].map((code) => (
                                     <button
                                         key={code}
                                         onClick={() => setSelectedOption(code)}
+<<<<<<< HEAD
                                         className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === code
                                             ? "bg-indigo-600 text-white border-indigo-600"
                                             : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+=======
+                                        className={`px-4 py-2 rounded-full border ${selectedOption === code
+                                            ? "bg-indigo-600 text-white border-indigo-600"
+                                            : "bg-white text-gray-900 border-gray-300 hover:border-indigo-400"
+>>>>>>> parent of 6f5dd0f (Update Package.jsx)
                                             }`}
                                     >
                                         {code}
@@ -137,10 +163,16 @@ export default function Package() {
                             </div>
                         </div>
 
+<<<<<<< HEAD
                         {/* QUANTITY */}
                         <div className="mb-8">
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
                                 {t.quantity}
+=======
+                        <div className="mb-6">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Кількість (шт.):
+>>>>>>> parent of 6f5dd0f (Update Package.jsx)
                             </label>
                             <input
                                 type="number"
@@ -155,39 +187,47 @@ export default function Package() {
                                         setQuantity(val);
                                     }
                                 }}
-                                className="w-32 px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all text-center text-base font-medium"
+                                className="w-32 px-3 py-2 border border-gray-300 rounded-lg shadow-sm appearance-none
+                [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                             />
                         </div>
 
+<<<<<<< HEAD
                         {/* PRICE */}
                         <div className="mb-6 text-2xl font-extrabold text-gray-900">
                             {t.pricePerUnit}{" "}
                             <span>{getUnitPrice().toFixed(2)} грн</span>
+=======
+                        <div className="mb-4 text-xl font-bold text-inherit">
+                            Ціна за 1 шт: {getUnitPrice().toFixed(2)} грн
+>>>>>>> parent of 6f5dd0f (Update Package.jsx)
                         </div>
 
-                        {/* BUTTON */}
                         <button
                             onClick={handleAddToCart}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all"
+                            className="w-full py-4 rounded-full bg-yellow-500 text-white font-semibold text-lg shadow-sm hover:bg-yellow-600 transition"
                         >
+<<<<<<< HEAD
                             {t.addToCart} — {totalPrice} грн
+=======
+                            Додати в кошик
+>>>>>>> parent of 6f5dd0f (Update Package.jsx)
                         </button>
                     </div>
 
-                    {/* RIGHT CONTENT (IMAGES) */}
-                    <div className="w-full lg:max-w-[500px] lg:ml-auto bg-white rounded-2xl shadow-lg p-6">
+                    <div className="w-full lg:max-w-[450px] lg:ml-16">
                         <Swiper
                             loop
                             spaceBetween={24}
                             modules={[Thumbs]}
                             thumbs={{ swiper: thumbsSwiper }}
-                            className="mb-6 rounded-xl overflow-hidden"
+                            className="mb-6"
                         >
                             {pack.images?.map((img, idx) => (
                                 <SwiperSlide key={idx}>
                                     <img
                                         src={img}
-                                        alt={pack.name}
+                                        alt="Product"
                                         className="w-full h-auto object-contain rounded-lg"
                                     />
                                 </SwiperSlide>
