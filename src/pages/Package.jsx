@@ -19,8 +19,6 @@ export default function Package() {
 
     const pack = packages.find((p) => p._id === id);
 
-    const translatedName = useTranslatedValue(pack?.name);
-    const translatedDescription = useTranslatedValue(pack?.description);
 
     useEffect(() => {
         if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
@@ -37,7 +35,6 @@ export default function Package() {
         pricePerUnit: "Ціна за 1 шт:",
         addToCart: "Додати в кошик"
     };
-    const t = usePageTranslation(pageTexts);
 
     if (loading) {
         return (
@@ -86,7 +83,9 @@ export default function Package() {
         });
     };
 
-
+    // useEffect(() => {
+    //     document.title = 'Пакеты для бизнеса';
+    // }, []);
 
     return (
         <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
@@ -96,18 +95,18 @@ export default function Package() {
                     {/* LEFT CONTENT */}
                     <div className="flex flex-col lg:pr-10">
                         <h2 className="mb-4 font-extrabold text-4xl lg:text-5xl leading-tight text-gray-900 tracking-tight">
-                            {translatedName}
+                            {pack.name}
                         </h2>
 
                         <p className="text-gray-600 text-base leading-relaxed mb-8">
-                            {translatedDescription}
+                            {pack.description}
                         </p>
 
 
                         {/* PRINT OPTIONS */}
                         <div className="mb-8">
                             <p className="font-semibold text-lg text-gray-900 mb-3">
-                                {t.choosePrint}
+                                Виберіть варіант друку:
                             </p>
                             <div className="flex flex-wrap gap-3 max-h-[220px] overflow-y-auto">
                                 <button
@@ -117,7 +116,7 @@ export default function Package() {
                                         : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
                                         }`}
                                 >
-                                    {t.noPrint}
+                                    Без друку
                                 </button>
 
                                 {[...new Set(pack.printOptions.map((p) => p.code))].map((code) => (
@@ -138,7 +137,7 @@ export default function Package() {
                         {/* QUANTITY */}
                         <div className="mb-8">
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                {t.quantity}
+                                Кількість (шт.):
                             </label>
                             <input
                                 type="number"
@@ -159,7 +158,7 @@ export default function Package() {
 
                         {/* PRICE */}
                         <div className="mb-6 text-2xl font-extrabold text-gray-900">
-                            {t.pricePerUnit}{" "}
+                             Ціна за штуку:{" "}
                             <span>{getUnitPrice().toFixed(2)} грн</span>
                         </div>
 
@@ -168,7 +167,7 @@ export default function Package() {
                             onClick={handleAddToCart}
                             className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all"
                         >
-                            {t.addToCart} — {totalPrice} грн
+                            Додати в кошик — {totalPrice} грн
                         </button>
                     </div>
 

@@ -1,14 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/src/style.css" rel="stylesheet">
-    <title>Кульок</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/src/style.css" rel="stylesheet">
+  <title>Кульок</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <div class="gtranslate_wrapper"></div>
+  <script>window.gtranslateSettings = { "default_language": "uk", "detect_browser_language": true, "languages": ["uk", "de", "ru", "fr", "it", "en"], "wrapper_selector": ".gtranslate_wrapper" }</script>
+  <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+
+  <script>
+      (function () {
+        const HOME_TITLE = 'Кульок';
+        let observer = null;
+
+        function isHomePage() {
+          return (
+            location.pathname === '/' ||
+            location.pathname === '/index.html'
+          );
+        }
+
+        function enableTitleLock() {
+          document.title = HOME_TITLE;
+
+          const titleEl = document.querySelector('title');
+          if (!titleEl) return;
+
+          observer = new MutationObserver(() => {
+            if (document.title !== HOME_TITLE) {
+              document.title = HOME_TITLE;
+            }
+          });
+
+          observer.observe(titleEl, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+          });
+        }
+
+        function disableTitleLock() {
+          if (observer) {
+            observer.disconnect();
+            observer = null;
+          }
+        }
+
+        function handleRouteChange() {
+          if (isHomePage()) {
+            enableTitleLock();
+          } else {
+            disableTitleLock();
+          }
+        }
+
+        // начальная загрузка
+        handleRouteChange();
+
+        // React Router (pushState / replaceState)
+        const pushState = history.pushState;
+        const replaceState = history.replaceState;
+
+        history.pushState = function () {
+          pushState.apply(this, arguments);
+          handleRouteChange();
+        };
+
+        history.replaceState = function () {
+          replaceState.apply(this, arguments);
+          handleRouteChange();
+        };
+
+        window.addEventListener('popstate', handleRouteChange);
+      })();
+  </script>
+
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

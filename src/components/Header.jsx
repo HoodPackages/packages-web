@@ -5,11 +5,8 @@ import { FaSpinner } from "react-icons/fa";
 import { Package } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
-import { useTranslation } from "react-i18next";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
-  const { t } = useTranslation();
   const { packages, loading } = usePackages();
   const [state, setState] = useState(false)
   const [dropdownState, setDropDownState] = useState({ isActive: false, idx: null })
@@ -24,19 +21,12 @@ export default function Header() {
   }));
 
   const navigation = [
-    { title: t("header.catalog"), path: "javascript:void(0)", isDropdown: true, navs: dynamicDropdownNavs },
-    { title: t("header.contact"), path: "/contactUs", isDropdown: false },
-    { title: t("header.about"), path: "/about", isDropdown: false },
-    { title: t("header.payment"), path: "javascript:void(0)", isDropdown: false },
-    { title: t("header.pantoneColors"), path: "/pantone", isDropdown: false }
+    { title: "Каталог", path: "javascript:void(0)", isDropdown: true, navs: dynamicDropdownNavs },
+    { title: "Контакти", path: "/contactUs", isDropdown: false },
+    { title: "Про нас", path: "/about", isDropdown: false },
+    { title: "Оплата", path: "javascript:void(0)", isDropdown: false },
+    { title: "Кольори Pantone", path: "/pantone", isDropdown: false }
   ];
-
-  useEffect(() => {
-    document.onclick = (e) => {
-      const target = e.target;
-      if (!target.closest(".nav-menu")) setDropDownState({ isActive: false, idx: null });
-    };
-  }, []);
 
   return (
     <>
@@ -143,12 +133,12 @@ export default function Header() {
 
               <div className='flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0'>
                 <li>
-                  <LanguageSwitcher />
+                  <div className="gtranslate_wrapper notranslate"></div>
                 </li>
-
+                
                 <li>
                   <a href="javascript:void(0)" className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline">
-                    {t("header.login")}
+                    Увійти
                   </a>
                 </li>
 
