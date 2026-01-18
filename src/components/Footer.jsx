@@ -16,7 +16,7 @@ export default function Footer() {
         {[
           { label: t("footer.home"), to: "/" },
           { label: t("footer.about"), to: "/about" },
-          { label: t("footer.payment"), to: "/payment" },
+          { label: t("footer.payment"), to: "/payments" },
           { label: t("footer.contact"), to: "/contactUs" },
           { label: t("footer.help"), to: "/help" },
         ].map(({ label, to }) => (

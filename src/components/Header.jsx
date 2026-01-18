@@ -7,6 +7,13 @@ import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
 
 export default function Header() {
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    setLoggedIn(!!token)
+  }, [])
+
   const { packages, loading } = usePackages();
   const [state, setState] = useState(false)
   const [dropdownState, setDropDownState] = useState({ isActive: false, idx: null })
@@ -135,11 +142,14 @@ export default function Header() {
                 <li>
                   <div className="gtranslate_wrapper notranslate"></div>
                 </li>
-                
+
                 <li>
-                  <a href="javascript:void(0)" className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline">
-                    Увійти
-                  </a>
+                  <Link
+                    to={loggedIn ? "/profile" : "/login"}
+                    className="block px-8 py-3.5 font-bold text-center text-white bg-black hover:bg-yellow-400 hover:text-black active:shadow-none rounded-full shadow md:inline"
+                  >
+                    {loggedIn ? "Профіль" : "Увійти"}
+                  </Link>
                 </li>
 
                 <li>

@@ -14,6 +14,10 @@ import PaymentPage from './pages/PaymentPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import OrderFailurePage from './pages/OrderFailurePage';
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -37,6 +41,16 @@ function App() {
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/order-success" element={<OrderSuccessPage />} />
           <Route path="/order-failure" element={<OrderFailurePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="*" element={< NotFound />} />
         </Routes>

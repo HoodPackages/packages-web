@@ -18,7 +18,7 @@ export default function Package() {
     const addToCart = useCartStore((state) => state.addToCart);
 
     const pack = packages.find((p) => p._id === id);
-
+    window.scroll(0, 0);
 
     useEffect(() => {
         if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
@@ -158,7 +158,7 @@ export default function Package() {
 
                         {/* PRICE */}
                         <div className="mb-6 text-2xl font-extrabold text-gray-900">
-                             Ціна за штуку:{" "}
+                            Ціна за штуку:{" "}
                             <span>{getUnitPrice().toFixed(2)} грн</span>
                         </div>
 
