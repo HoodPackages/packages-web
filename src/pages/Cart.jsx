@@ -2,7 +2,15 @@ import { useCartStore } from "../../store/cartStore";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, removeFromCart, clearCart } = useCartStore();
+  const {
+    cart,
+    removeFromCart,
+    clearCart,
+    comment,
+    setComment,
+    setLayoutFile,
+    layoutFile
+  } = useCartStore();
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -92,7 +100,37 @@ export default function Cart() {
             Очистити кошик
           </button>
         </aside>
+
+        <div className="bg-white rounded-2xl shadow-md p-5 mt-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-3">Ваш макет для друку</h3>
+
+          <input
+            type="file"
+            accept=".pdf,.png,.jpg,.jpeg"
+            onChange={(e) => setLayoutFile(e.target.files[0])}
+          />
+
+          {layoutFile && (
+            <div className="mb-3">
+              <p className="text-gray-600 text-sm mb-1">Вибраний файл:</p>
+              <p className="text-gray-700 text-sm">{layoutFile.name}</p>
+              <button
+                onClick={() => setLayoutFile(null)}
+                className="mt-2 text-sm text-red-500 hover:underline"
+              >
+                Очистити файл
+              </button>
+            </div>
+          )}
+
+          <textarea
+            placeholder="Коментар до замовлення..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-400"
+          />
+        </div>
       </div>
-    </div>
+    </div >
   );
 }

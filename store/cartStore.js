@@ -31,5 +31,17 @@ export const useCartStore = create((set, get) => ({
   clearCart: () => {
     localStorage.removeItem("cart");
     set({ cart: [] });
-  }
+  },
+
+  comment: localStorage.getItem("order_comment") || "",
+  layoutFile: null,
+
+  setComment: (comment) => {
+    localStorage.setItem("order_comment", comment);
+    set({ comment });
+  },
+
+  setLayoutFile: (file) => {
+    set({ layoutFile: file });
+  },
 }));

@@ -6,7 +6,7 @@ import { API_URL } from "../data/config";
 export default function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { cart } = useCartStore();
+  const { cart, comment, layoutFile } = useCartStore();
 
   const contact = location.state?.contact || {};
   const delivery = location.state?.delivery || {};
@@ -21,31 +21,38 @@ export default function PaymentPage() {
     setLoading(true);
     setError(null);
 
+    const formData = new FormData();
+
+    formData.append("contact", JSON.stringify(contact));
+    formData.append("delivery", JSON.stringify(delivery));
+    formData.append("cart", JSON.stringify(cart));
+    formData.append("paymentMethod", paymentMethod);
+    formData.append("total", total);
+    formData.append("comment", comment);
+
+    if (layoutFile) {
+      formData.append("layout", layoutFile);
+    }
+
     try {
-      const response = await fetch(`${API_URL}/api/pdf/generate-invoice`, {
+      const res = await fetch(`${API_URL}/api/pdf/generate-invoice`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contact,
-          delivery,
-          cart,
-          paymentMethod,
-          total,
-        }),
+        body: formData
       });
 
-      if (!response.ok) {
-        throw new Error("Помилка при генерації PDF");
+      if (!res.ok) {
+        throw new Error("Server error");
       }
 
-      const blob = await response.blob();
-
+      const blob = await res.blob(); // ✅ ВАЖНО
       const url = window.URL.createObjectURL(blob);
-      setPdfUrl(url);
 
-      window.open(url);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "invoice.pdf";
+      a.click();
+
+      window.URL.revokeObjectURL(url);
 
       setLoading(false);
     } catch (err) {
