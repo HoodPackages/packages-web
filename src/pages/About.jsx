@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 
 export default function AboutPage() {
   const { t } = useTranslation();
-
+  document.title = "Про нас"
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <header className="bg-yellow-400 py-12 text-center">

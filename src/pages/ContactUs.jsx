@@ -13,6 +13,8 @@ const ContactUs = () => {
     message: "",
   });
 
+  document.title = "Контакти"
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 

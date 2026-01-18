@@ -70,6 +70,7 @@ const pantoneColors = [
 ];
 
 export default function PantonePage() {
+  document.title = "Pantone";
   const { t } = useTranslation();
   const [copied, setCopied] = useState(null);
   const [search, setSearch] = useState("");

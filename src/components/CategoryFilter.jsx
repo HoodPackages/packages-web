@@ -1,6 +1,6 @@
 'use client'
 import ProductCard from './ProductCard';
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { usePackages } from "../data/usePackages";
 import { useParams, useNavigate } from 'react-router-dom';
@@ -130,6 +130,8 @@ export default function CategoryFilter() {
     const { categoryName, subCategoryName } = useParams();
 
     const [currentSort, setCurrentSort] = useState(sortOptions[0].name);
+
+    
 
     const sortPackages = (packagesList) => {
         switch (currentSort) {
