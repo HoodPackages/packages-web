@@ -12,17 +12,15 @@ export default function PaymentPage() {
   const delivery = location.state?.delivery || {};
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [loading, setLoading] = useState(false);
-  const [pdfUrl, setPdfUrl] = useState(null);
   const [error, setError] = useState(null);
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  async function handlePaymentSuccess() {
+  async function handleFinishOrder() {
     setLoading(true);
     setError(null);
 
     const formData = new FormData();
-
     formData.append("contact", JSON.stringify(contact));
     formData.append("delivery", JSON.stringify(delivery));
     formData.append("cart", JSON.stringify(cart));
@@ -30,34 +28,21 @@ export default function PaymentPage() {
     formData.append("total", total);
     formData.append("comment", comment);
 
-    if (layoutFile) {
-      formData.append("layout", layoutFile);
-    }
+    if (layoutFile) formData.append("layout", layoutFile);
 
     try {
-      const res = await fetch(`${API_URL}/api/pdf/generate-invoice`, {
+      const res = await fetch(`${API_URL}/api/pdf/generate-order`, {
         method: "POST",
         body: formData
       });
 
-      if (!res.ok) {
-        throw new Error("Server error");
-      }
+      const data = await res.json();
 
-      const blob = await res.blob(); // ✅ ВАЖНО
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "invoice.pdf";
-      a.click();
-
-      window.URL.revokeObjectURL(url);
-
-      setLoading(false);
+      navigate("/order-success", { state: { orderId: data.orderId } });
     } catch (err) {
+      setError("Помилка створення замовлення");
+    } finally {
       setLoading(false);
-      setError(err.message);
     }
   }
 
@@ -193,7 +178,7 @@ export default function PaymentPage() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
-            onClick={() => navigate("/order-success")}
+            onClick={handleFinishOrder}
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto"
           >
             Завершити замовлення
@@ -206,41 +191,6 @@ export default function PaymentPage() {
             Відмінити
           </button>
         </div>
-
-        {/* ссылки на PDF под кнопками */}
-        <div className="mt-4 flex flex-col items-center gap-2 text-center">
-          <a
-            href={pdfUrl || "#"}
-            onClick={(e) => {
-              if (!pdfUrl) {
-                e.preventDefault();
-                handlePaymentSuccess();
-              }
-            }}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-yellow-600 underline font-semibold hover:text-yellow-700"
-            download={pdfUrl ? "invoice.pdf" : undefined}
-          >
-            {loading ? "Генеруємо PDF..." : "Завантажити рахунок-фактуру"}
-          </a>
-
-          <a
-            href={pdfUrl || "#"}
-            onClick={(e) => {
-              if (!pdfUrl) {
-                e.preventDefault();
-                handlePaymentSuccess();
-              }
-            }}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-yellow-600 underline font-semibold hover:text-yellow-700"
-          >
-            {loading ? "Генеруємо PDF..." : "Відкрити рахунок-фактуру"}
-          </a>
-        </div>
-
 
       </div>
     </div>
