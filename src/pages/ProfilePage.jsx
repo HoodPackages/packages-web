@@ -26,6 +26,11 @@ export default function ProfilePage() {
                     headers: { Authorization: `Bearer ${token}` }
                 })
                 const data = await res.json()
+                if (res.status === 401) {
+                    logoutUser()
+                    navigate("/login")
+                    return
+                }
                 if (!res.ok) throw new Error(data.message || "Помилка сервера")
                 setUser(data.user)
             } catch (err) {
@@ -39,7 +44,7 @@ export default function ProfilePage() {
     }, [navigate])
 
     const handleLogout = () => {
-        logoutUser() // очищает store и localStorage
+        logoutUser()
         navigate("/")
     }
 

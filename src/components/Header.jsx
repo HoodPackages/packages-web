@@ -5,14 +5,10 @@ import { FaSpinner } from "react-icons/fa";
 import { Package } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "../../store/cartStore";
+import { useAuthStore } from "../../store/authStore";
 
 export default function Header() {
-  const [loggedIn, setLoggedIn] = useState(false)
-
-  useEffect(() => {
-    const token = localStorage.getItem("token")
-    setLoggedIn(!!token)
-  }, [])
+  const loggedIn = useAuthStore(state => state.isAuth)
 
   const { packages, loading } = usePackages();
   const [state, setState] = useState(false)
