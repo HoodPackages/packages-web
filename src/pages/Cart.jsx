@@ -34,6 +34,14 @@ export default function Cart() {
     );
   }
 
+  const totalDiscount = cart.reduce((sum, item) => {
+    if (item.discount && item.discount > 0) {
+      const basePrice = Math.round((item.price / (1 - item.discount / 100)) * 100) / 100;
+      return sum + (basePrice - item.price) * item.quantity;
+    }
+    return sum;
+  }, 0);
+
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-yellow-50">
       <h1 className="text-4xl font-extrabold text-yellow-600 mb-10 text-center">🛒 Ваш кошик</h1>
@@ -81,6 +89,10 @@ export default function Cart() {
           <div className="flex justify-between mb-6 text-gray-700">
             <span>Доставка:</span>
             <span className="font-semibold">Безкоштовно</span>
+          </div>
+          <div className="flex justify-between mb-6 text-gray-700">
+            <span>Знижка:</span>
+            <span className="font-semibold text-green-600">- {totalDiscount.toFixed(2)} грн</span>
           </div>
           <div className="flex justify-between text-2xl font-extrabold text-yellow-600 mb-8">
             <span>Разом: {totalPrice.toFixed(2)} грн</span>

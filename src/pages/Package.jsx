@@ -5,6 +5,7 @@ import { FaSpinner } from "react-icons/fa";
 import { useCartStore } from "../../store/cartStore";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs } from "swiper/modules";
+import { useAuthStore } from "../../store/authStore";
 
 import "swiper/css";
 import "swiper/css/thumbs";
@@ -16,6 +17,9 @@ export default function Package() {
     const [quantity, setQuantity] = useState(100);
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const addToCart = useCartStore((state) => state.addToCart);
+
+    const isAuth = useAuthStore(state => state.isAuth);
+    const discount = useAuthStore(state => state.user?.discount || 0);
 
     const pack = packages.find((p) => p._id === id);
     window.scroll(0, 0);
@@ -56,11 +60,12 @@ export default function Package() {
         if (!Array.isArray(pack.price) || pack.price.length === 0) return 0;
         const sorted = [...pack.price].sort((a, b) => b.minQty - a.minQty);
         const level = sorted.find((p) => quantity >= p.minQty) || sorted[sorted.length - 1];
-        return level.price;
+        return Number(level.price);
     };
 
     const getUnitPrice = () => {
         const basePrice = getBaseUnitPrice();
+
         let printPrice = 0;
         if (selectedOption && Array.isArray(pack.printOptions)) {
             const filtered = pack.printOptions.filter((p) => p.code === selectedOption);
@@ -68,7 +73,16 @@ export default function Package() {
             const matching = sorted.find((p) => quantity >= p.quantity) || sorted[sorted.length - 1];
             printPrice = matching?.price || 0;
         }
-        return basePrice + printPrice;
+        const unitPriceBeforeDiscount = basePrice + printPrice;
+
+        const discountedPrice = isAuth
+            ? Math.min(
+                unitPriceBeforeDiscount,
+                Math.floor(unitPriceBeforeDiscount * (1 - discount / 100) * 100) / 100
+            )
+            : unitPriceBeforeDiscount;
+
+        return discountedPrice;
     };
 
     const totalPrice = (getUnitPrice() * quantity).toFixed(2);
@@ -80,6 +94,7 @@ export default function Package() {
             image: pack.images?.[0],
             price: getUnitPrice(),
             quantity,
+            discount: isAuth ? discount : 0
         });
     };
 
@@ -159,7 +174,16 @@ export default function Package() {
                         {/* PRICE */}
                         <div className="mb-6 text-2xl font-extrabold text-gray-900">
                             Ціна за штуку:{" "}
-                            <span>{getUnitPrice().toFixed(2)} грн</span>
+                            {isAuth && discount > 0 ? (
+                                <>
+                                    <span>{getUnitPrice().toFixed(2)} грн</span>
+                                    <span className="ml-2 text-sm text-gray-500 line-through">
+                                        {(getBaseUnitPrice() + (selectedOption ? pack.printOptions.find(p => p.code === selectedOption)?.price || 0 : 0)).toFixed(2)} грн
+                                    </span>
+                                </>
+                            ) : (
+                                <span>{getUnitPrice().toFixed(2)} грн</span>
+                            )}
                         </div>
 
                         {/* BUTTON */}

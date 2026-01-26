@@ -6,6 +6,7 @@ import { API_URL } from "../data/config"
 export default function ProfilePage() {
     const navigate = useNavigate()
     const logoutUser = useAuthStore(state => state.logout)
+    const setAuthUser = useAuthStore(state => state.setUser)
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -33,6 +34,7 @@ export default function ProfilePage() {
                 }
                 if (!res.ok) throw new Error(data.message || "Помилка сервера")
                 setUser(data.user)
+                setAuthUser(data.user)
             } catch (err) {
                 setError(err.message)
             } finally {

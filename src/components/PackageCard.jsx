@@ -1,11 +1,22 @@
 import { Link } from "react-router-dom"
+import { useAuthStore } from "../../store/authStore"
 
 export default function PackageCard({ pack }) {
-  const minPrice = pack.price && pack.price.length > 0
-    ? Math.min(...pack.price.map(p => p.price))
-    : null;
+  const isAuth = useAuthStore(state => state.isAuth)
+  const discount = useAuthStore(state => state.user?.discount || 0)
 
-  const oldPrice = minPrice ? Math.floor(minPrice * 1.2) : null;
+  const basePrice =
+    pack.price && pack.price.length > 0
+      ? Math.min(...pack.price.map(p => Number(p.price)))
+      : null
+
+  const discountedPrice =
+    isAuth && basePrice !== null
+      ? Math.min(
+        basePrice,
+        Math.floor(basePrice * (1 - discount / 100) * 100) / 100
+      )
+      : basePrice
 
   const mainImage = Array.isArray(pack.images) ? pack.images[0] : pack.images;
   const hoverImage = Array.isArray(pack.images) && pack.images.length > 1 ? pack.images[1] : mainImage;
@@ -48,14 +59,24 @@ export default function PackageCard({ pack }) {
         </Link>
 
         <div className="mt-2 mb-5 flex items-center justify-between">
-          <p>
-            {minPrice !== null && (
-              <>
-                <span className="text-2xl font-bold text-slate-900">{minPrice} грн</span>
-                <span className="ml-2 text-sm text-slate-500 line-through">{oldPrice} грн</span>
-              </>
-            )}
-          </p>
+          {basePrice !== null && (
+            <p>
+              {isAuth ? (
+                <>
+                  <span className="text-2xl font-bold text-slate-900">
+                    {discountedPrice} грн
+                  </span>
+                  <span className="ml-2 text-sm text-slate-500 line-through">
+                    {basePrice} грн
+                  </span>
+                </>
+              ) : (
+                <span className="text-2xl font-bold text-slate-900">
+                  {basePrice} грн
+                </span>
+              )}
+            </p>
+          )}
         </div>
 
         <Link
@@ -76,7 +97,7 @@ export default function PackageCard({ pack }) {
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          Переглянути
+          До товару
         </Link>
       </div>
     </div>
