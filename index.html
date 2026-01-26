@@ -11,72 +11,94 @@
 <body>
   <div id="root"></div>
   <div class="gtranslate_wrapper"></div>
-  <script>window.gtranslateSettings = { "default_language": "uk", "detect_browser_language": true, "languages": [ "en", "de", "uk", "fr", "it"], "wrapper_selector": ".gtranslate_wrapper" }</script>
+  <script>
+    (function () {
+      // Список поддерживаемых языков
+      const supportedLanguages = ["en", "de", "uk", "fr", "it"];
+
+      // Определяем язык браузера
+      let browserLang = navigator.language || navigator.userLanguage; // например "uk-UA"
+      browserLang = browserLang.slice(0, 2).toLowerCase(); // оставляем только первые две буквы
+
+      // Если язык не поддерживается, выбираем английский
+      if (!supportedLanguages.includes(browserLang)) {
+        browserLang = "en";
+      }
+
+      // Настройки GTranslate
+      window.gtranslateSettings = {
+        default_language: "uk",
+        detect_browser_language: false, // отключаем автоопределение GTranslate, мы сами определяем
+        languages: supportedLanguages,
+        wrapper_selector: ".gtranslate_wrapper"
+      };
+    })();
+  </script>
   <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
 
   <script>
-      (function () {
-        const HOME_TITLE = 'Кульок';
-        let observer = null;
+    (function () {
+      const HOME_TITLE = 'Кульок';
+      let observer = null;
 
-        function isHomePage() {
-          return (
-            location.pathname === '/' ||
-            location.pathname === '/index.html'
-          );
-        }
+      function isHomePage() {
+        return (
+          location.pathname === '/' ||
+          location.pathname === '/index.html'
+        );
+      }
 
-        function enableTitleLock() {
-          document.title = HOME_TITLE;
+      function enableTitleLock() {
+        document.title = HOME_TITLE;
 
-          const titleEl = document.querySelector('title');
-          if (!titleEl) return;
+        const titleEl = document.querySelector('title');
+        if (!titleEl) return;
 
-          observer = new MutationObserver(() => {
-            if (document.title !== HOME_TITLE) {
-              document.title = HOME_TITLE;
-            }
-          });
-
-          observer.observe(titleEl, {
-            childList: true,
-            subtree: true,
-            characterData: true,
-          });
-        }
-
-        function disableTitleLock() {
-          if (observer) {
-            observer.disconnect();
-            observer = null;
+        observer = new MutationObserver(() => {
+          if (document.title !== HOME_TITLE) {
+            document.title = HOME_TITLE;
           }
-        }
+        });
 
-        function handleRouteChange() {
-          if (isHomePage()) {
-            enableTitleLock();
-          } else {
-            disableTitleLock();
-          }
-        }
+        observer.observe(titleEl, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
+      }
 
+      function disableTitleLock() {
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+      }
+
+      function handleRouteChange() {
+        if (isHomePage()) {
+          enableTitleLock();
+        } else {
+          disableTitleLock();
+        }
+      }
+
+      handleRouteChange();
+
+      const pushState = history.pushState;
+      const replaceState = history.replaceState;
+
+      history.pushState = function () {
+        pushState.apply(this, arguments);
         handleRouteChange();
+      };
 
-        const pushState = history.pushState;
-        const replaceState = history.replaceState;
+      history.replaceState = function () {
+        replaceState.apply(this, arguments);
+        handleRouteChange();
+      };
 
-        history.pushState = function () {
-          pushState.apply(this, arguments);
-          handleRouteChange();
-        };
-
-        history.replaceState = function () {
-          replaceState.apply(this, arguments);
-          handleRouteChange();
-        };
-
-        window.addEventListener('popstate', handleRouteChange);
-      })();
+      window.addEventListener('popstate', handleRouteChange);
+    })();
   </script>
 
   <script type="module" src="/src/main.jsx"></script>

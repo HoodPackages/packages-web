@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { HiClipboardCopy, HiCheck } from "react-icons/hi";
 import { FaPalette } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
 
 const pantoneColors = [
   { name: "Classic Blue", pantone: "19-4052", hex: "#0F4C81", group: "blue" },
@@ -71,7 +70,6 @@ const pantoneColors = [
 
 export default function PantonePage() {
   document.title = "Pantone";
-  const { t } = useTranslation();
   const [copied, setCopied] = useState(null);
   const [search, setSearch] = useState("");
   const [expandedGroups, setExpandedGroups] = useState({});
@@ -111,23 +109,23 @@ export default function PantonePage() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center flex items-center justify-center gap-2">
           <FaPalette size={36} />
-          {t("pantone.title")}
+          Кольори Pantone
         </h1>
 
         <div className="mb-8 max-w-md mx-auto">
           <input
             type="search"
-            placeholder={t("pantone.searchPlaceholder")}
+            placeholder="Пошук кольору..."
             className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            aria-label={t("pantone.searchAria")}
+            aria-label="Пошук кольору"
           />
         </div>
 
         {groupsSorted.length === 0 ? (
           <p className="text-center text-gray-500 text-lg">
-            {t("pantone.notFound")}
+            Кольори не знайдено
           </p>
         ) : (
           <div className="space-y-8">
@@ -147,7 +145,7 @@ export default function PantonePage() {
                     aria-controls={`${group}-colors`}
                   >
                     <span>
-                      {t(`pantone.groups.${group}`)} ({colors.length})
+                      {group.charAt(0).toUpperCase() + group.slice(1)} ({colors.length})
                     </span>
                     <span className="text-xl select-none">
                       {isExpanded ? "−" : "+"}
@@ -167,10 +165,7 @@ export default function PantonePage() {
                           <div
                             className="h-40"
                             style={{ backgroundColor: color.hex }}
-                            aria-label={t("pantone.colorAria", {
-                              name: color.name,
-                              pantone: color.pantone,
-                            })}
+                            aria-label={`${color.name}, Pantone ${color.pantone}`} // <--------- на всякий
                           ></div>
 
                           <div className="p-4 bg-white flex flex-col items-center">
@@ -187,15 +182,12 @@ export default function PantonePage() {
                             <button
                               onClick={() => handleCopy(color.hex)}
                               className="mt-3 flex items-center space-x-1 text-indigo-600 hover:text-indigo-800 text-sm font-semibold select-none"
-                              aria-label={t("pantone.copyAria", {
-                                hex: color.hex,
-                              })}
+                              aria-label={`Скопіювати HEX ${color.hex}`}
                               type="button"
                             >
                               {copied === color.hex ? (
                                 <>
                                   <HiCheck size={18} aria-hidden="true" />{" "}
-                                  <span>{t("pantone.copied")}</span>
                                 </>
                               ) : (
                                 <>

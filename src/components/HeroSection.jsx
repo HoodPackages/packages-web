@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
-import { useTranslation } from "react-i18next";
 
 export default function HeroSection() {
     const [showArrows, setShowArrows] = useState(true);
-    const { t } = useTranslation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,13 +21,13 @@ export default function HeroSection() {
                     <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
                         <div>
                             <p className="text-base font-semibold tracking-wider text-yellow-400 uppercase">
-                                {t("hero.subtitle")}
+                                Друк під замовлення для вашого бренду
                             </p>
                             <h1 className="mt-4 text-4xl font-bold text-black lg:mt-8 sm:text-6xl xl:text-8xl">
-                                {t("hero.title")}
+                                Пакети, коробки, футболки та інше
                             </h1>
                             <p className="mt-4 text-base text-black lg:mt-8 sm:text-xl">
-                                {t("hero.description")}
+                                Друкуємо та постачаємо продукцію для бізнесу й подарунків
                             </p>
 
                             <button
@@ -41,7 +39,7 @@ export default function HeroSection() {
                                 }}
                                 className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-16 hover:bg-yellow-400 focus:bg-yellow-400"
                             >
-                                {t("hero.catalogBtn")}
+                                До каталогу
                                 <svg
                                     className="w-6 h-6 ml-8 -mr-2"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +58,9 @@ export default function HeroSection() {
 
 
                             <p className="mt-5 text-gray-600">
-                                {t("hero.paymentInfo")}{" "}
+                                Ознайомитись з типами оплати:
                                 <Link to="payments" className="text-yellow-400 hover:underline">
-                                    {t("hero.paymentLink")}
+                                    Оплата
                                 </Link>
                             </p>
                         </div>

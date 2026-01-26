@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"
 
 export default function Footer() {
-  const { t } = useTranslation();
 
   return (
     <footer
@@ -11,14 +9,13 @@ export default function Footer() {
         font-poppins px-4
       "
     >
-      {/* Навигация */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8 gap-6 w-full max-w-screen-md justify-center mx-auto text-center">
         {[
-          { label: t("footer.home"), to: "/" },
-          { label: t("footer.about"), to: "/about" },
-          { label: t("footer.payment"), to: "/payments" },
-          { label: t("footer.contact"), to: "/contactUs" },
-          { label: t("footer.help"), to: "/help" },
+          { label: "Головна", to: "/" },
+          { label: "Про нас", to: "/about" },
+          { label: "Оплата", to: "/payments" },
+          { label: "Контакти", to: "/contactUs" },
+          { label: "Допомога", to: "/help" },
         ].map(({ label, to }) => (
           <Link
             key={label}
@@ -30,7 +27,6 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* Соцсети */}
       <div className="flex flex-wrap justify-center items-center gap-4 mt-8 text-indigo-500 max-w-screen-md w-full">
         {/* Facebook */}
         <a href="#" className="hover:-translate-y-0.5 transition-all duration-300">
@@ -138,12 +134,12 @@ export default function Footer() {
         </a>
       </div>
 
-      <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full mx-auto">
+      <p className="mt-8 text-center text-xs sm:text-sm max-w-screen-md w-full mx-auto gtranslate">
         Copyright © {new Date().getFullYear()}{" "}
         <span className="underline hover:text-yellow-400 cursor-pointer">
           Kuliok
         </span>
-        . {t("footer.rights")}
+        . Усі права захищено
       </p>
     </footer>
   );

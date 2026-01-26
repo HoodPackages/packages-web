@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../data/config";
-import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
-  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,7 +26,7 @@ const ContactUs = () => {
     setMessage(null);
 
     if (!formData.email.trim() || !formData.phone.trim()) {
-      setMessage(t("contact.validation"));
+      setMessage("Будь ласка, введіть електронну адресу або номер телефону.");
       return;
     }
 
@@ -43,7 +41,7 @@ const ContactUs = () => {
         message: formData.message,
       });
 
-      setMessage(t("contact.success"));
+      setMessage("Ваше повідомлення надіслано!");
       setFormData({
         name: "",
         email: "",
@@ -52,7 +50,7 @@ const ContactUs = () => {
         message: "",
       });
     } catch (err) {
-      setMessage(t("contact.error"));
+      setMessage("Помилка при надсиланні повідомлення.");
     } finally {
       setLoading(false);
     }
@@ -65,41 +63,41 @@ const ContactUs = () => {
           <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
             <div className="mb-12 max-w-[570px] lg:mb-0">
               <span className="mb-4 block text-base font-semibold text-primary">
-                {t("contact.subtitle")}
+                Ви можете зв'язатись з нами будь-яким зручним способом для Вас
               </span>
 
               <h2 className="mb-6 text-[32px] font-bold uppercase text-dark sm:text-[40px] lg:text-[36px] xl:text-[40px]">
-                {t("contact.title")}
+                БУДЬТЕ З НАМИ
               </h2>
 
               <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
-                {t("contact.desc1")}
+                Дякуємо, що завітали до нас! Ми — професіонали у сфері продажу якісних пакетів різного формату та друку на них. Готові допомогти вам обрати оптимальний варіант для вашого бізнесу або заходу.
               </p>
 
               <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
-                {t("contact.desc2")}
+                Якщо у вас є питання, потребуєте консультації або хочете зробити замовлення, зв'яжіться з нами за зручним способом:
               </p>
 
               <ContactInfo
                 icon="location"
-                title={t("contact.addressTitle")}
-                text={t("contact.address")}
+                title="Ми знаходимось"
+                text="м. Дніпро, Дніпропетровська обл., Україна"
               />
 
               <ContactInfo
                 icon="phone"
-                title={t("contact.phoneTitle")}
-                text={t("contact.phone")}
+                title="Номер телефону"
+                text="+380 (99) 129 00 29"
               />
 
               <ContactInfo
                 icon="email"
-                title={t("contact.emailTitle")}
-                text={t("contact.email")}
+                title="Електронна пошта"
+                text="kuliok.ukraine@gmail.com"
               />
 
               <p className="mb-9 text-base leading-relaxed text-body-color dark:text-dark-6">
-                {t("contact.partners")}
+                Ми завжди раді співпраці та готові запропонувати індивідуальні умови для наших партнерів.
               </p>
             </div>
           </div>
@@ -110,34 +108,34 @@ const ContactUs = () => {
                 <ContactInputBox
                   type="text"
                   name="name"
-                  placeholder={t("contact.form.name")}
+                  placeholder="Ваше ім'я"
                   value={formData.name}
                   onChange={handleChange}
                 />
                 <ContactInputBox
                   type="email"
                   name="email"
-                  placeholder={t("contact.form.email")}
+                  placeholder="Ваша електронна адреса"
                   value={formData.email}
                   onChange={handleChange}
                 />
                 <ContactInputBox
                   type="text"
                   name="phone"
-                  placeholder={t("contact.form.phone")}
+                  placeholder="Ваш номер телефону"
                   value={formData.phone}
                   onChange={handleChange}
                 />
                 <ContactInputBox
                   type="text"
                   name="subject"
-                  placeholder={t("contact.form.subject")}
+                  placeholder="Тема повідомлення"
                   value={formData.subject}
                   onChange={handleChange}
                 />
                 <ContactTextArea
                   row="6"
-                  placeholder={t("contact.form.message")}
+                  placeholder="Ваше повідомлення"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -148,7 +146,7 @@ const ContactUs = () => {
                     className="w-full rounded border border-primary bg-primary p-3 transition hover:bg-opacity-90"
                     disabled={loading}
                   >
-                    {loading ? t("contact.form.sending") : t("contact.form.send")}
+                    {loading ? "Надсилання..." : "Відправити"}
                   </button>
                 </div>
                 {message && (

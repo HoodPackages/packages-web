@@ -71,7 +71,7 @@ export default function ProfilePage() {
             <div className="w-full max-w-md border border-gray-200 rounded-2xl p-8 shadow-lg">
 
                 <div className="mb-8 text-center">
-                    <h1 className="text-2xl font-bold text-black">{user.name}</h1>
+                    <h1 className="text-2xl font-bold text-black notranslate">{user.name}</h1>
                     <p className="text-sm text-gray-500 mt-1">Профіль користувача</p>
                 </div>
 

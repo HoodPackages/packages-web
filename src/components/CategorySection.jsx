@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { usePackages } from "../data/usePackages";
 import { Link } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
 
 export default function CategorySection() {
-    const { t } = useTranslation();
     const { packages, loading } = usePackages();
     const [showAll, setShowAll] = useState(false);
 
     const categoriesMap = packages.reduce((acc, pkg) => {
-        const category = pkg.category || t("category.noCategory");
+        const category = pkg.category || "Без категорії";
 
         if (!acc[category]) {
             acc[category] = {
@@ -38,7 +36,7 @@ export default function CategorySection() {
             <div className="flex justify-center items-center min-h-[200px]">
                 <div className="flex items-center gap-3 text-lg text-gray-500">
                     <FaSpinner className="animate-spin h-6 w-6" />
-                    <span>{t("category.loading")}</span>
+                    <span>Завантаження категорій...</span>
                 </div>
             </div>
         );
@@ -47,9 +45,9 @@ export default function CategorySection() {
     return (
         <div className="py-16 bg-white text-center">
             <section id="catalog-section">
-                <h2 className="text-3xl font-bold text-gray-900">{t("category.title")}</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Категорії</h2>
                 <p className="mt-4 max-w-md mx-auto text-gray-500">
-                    {t("category.subtitle")}
+                    Ми підготували різні пакети товарів — оберіть категорію, яка вам підходить найбільше.
                 </p>
             </section>
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
@@ -65,7 +63,7 @@ export default function CategorySection() {
                             className="w-68 h-68 object-cover rounded-xl shadow-sm"
                         />
                         <h3 className="mt-4 text-lg font-semibold text-gray-900">{category.name}</h3>
-                        <p className="text-sm text-gray-500">{t("category.productsCount", { count: category.products })}</p>
+                        <p className="text-sm text-gray-500">Товарів: {category.products}</p>
                     </Link>
                 ))}
             </div>
@@ -75,7 +73,7 @@ export default function CategorySection() {
                     className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-16 hover:bg-yellow-400 focus:bg-yellow-400"
                     onClick={() => setShowAll(true)}
                 >
-                    {t("category.showAll")}
+                    Подивитись усі
                     <svg
                         className="w-6 h-6 ml-3 -mr-2 rotate-90"
                         xmlns="http://www.w3.org/2000/svg"
