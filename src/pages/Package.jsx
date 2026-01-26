@@ -24,20 +24,17 @@ export default function Package() {
     const pack = packages.find((p) => p._id === id);
 
     useEffect(() => {
-        if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
+        if (!pack) return; // если pack нет, ничего не делаем
+
+        // обновляем quantity
+        if (Array.isArray(pack.price) && pack.price.length > 0) {
             const minQty = Math.min(...pack.price.map((p) => p.minQty));
             setQuantity(minQty);
         }
-    }, [pack]);
 
-    const pageTexts = {
-        notFound: "Пакет не знайдено",
-        choosePrint: "Виберіть варіант друку:",
-        noPrint: "Без друку",
-        quantity: "Кількість (шт.):",
-        pricePerUnit: "Ціна за 1 шт:",
-        addToCart: "Додати в кошик"
-    };
+        // обновляем title
+        document.title = pack.name;
+    }, [pack]);
 
     if (loading) {
         window.scroll(0, 0);
@@ -98,10 +95,6 @@ export default function Package() {
             discount: isAuth ? discount : 0
         });
     };
-
-    // useEffect(() => {
-    //     document.title = 'Пакеты для бизнеса';
-    // }, []);
 
     return (
         <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
