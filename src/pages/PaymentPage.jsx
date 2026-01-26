@@ -27,6 +27,8 @@ export default function PaymentPage() {
     formData.append("paymentMethod", paymentMethod);
     formData.append("total", total);
     formData.append("comment", comment);
+    const language = localStorage.getItem("app_language") || "en";
+    formData.append("language", language);
 
     if (layoutFile) formData.append("layout", layoutFile);
 

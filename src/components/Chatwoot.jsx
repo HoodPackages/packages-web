@@ -3,6 +3,26 @@ import React, { useState, useEffect } from 'react';
 export default function Chatwoot() {
     const [isChatOpen, setIsChatOpen] = useState(false);
 
+    useEffect(() => {
+        let lastLang = localStorage.getItem('app_language');
+
+        const interval = setInterval(() => {
+            const currentLang = localStorage.getItem('app_language');
+
+            if (
+                currentLang &&
+                currentLang !== lastLang &&
+                window.$chatwoot
+            ) {
+                window.$chatwoot.setLocale(currentLang);
+                lastLang = currentLang;
+            }
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, []);
+
+
     const setUserData = () => {
         const userIdentifier = `guest_${Math.random().toString(36).substring(2, 10)}`;
         const name = '';
@@ -25,20 +45,10 @@ export default function Chatwoot() {
         script.defer = true;
 
         script.onload = () => {
-            let lang = localStorage.getItem('lang');
-
-            if (!lang) {
-                const browserLang = navigator.language.slice(0, 2).toLowerCase();
-                lang = browserLang;
-            }
-
-            if (lang === 'ua') lang = 'uk';
-
             window.chatwootSettings = {
                 hideMessageBubble: false,
                 showUnreadMessagesDialog: true,
                 position: "right",
-                locale: lang,
                 useBrowserLanguage: false,
                 type: "bubble",
                 launcherTitle: "Чат з нами",

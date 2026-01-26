@@ -38,6 +38,32 @@
 
   <script>
     (function () {
+      const STORAGE_KEY = "app_language";
+      const DEFAULT_LANG = "uk";
+
+      function getLangFromCookie() {
+        const match = document.cookie.match(/googtrans=\/[^\/]+\/([^;]+)/);
+        return match ? match[1] : null;
+      }
+
+      setInterval(() => {
+        const cookieLang = getLangFromCookie();
+        const langToStore = cookieLang || DEFAULT_LANG;
+
+        if (localStorage.getItem(STORAGE_KEY) !== langToStore) {
+          localStorage.setItem(STORAGE_KEY, langToStore);
+        }
+      }, 500);
+
+      window.getAppLanguage = function () {
+        return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+      };
+    })();
+  </script>
+
+
+  <script>
+    (function () {
       const HOME_TITLE = 'Кульок';
       let observer = null;
 

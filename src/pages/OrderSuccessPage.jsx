@@ -22,7 +22,9 @@ export default function OrderSuccessPage() {
     setLoading(true);
     setError(null);
 
-    fetch(`${API_URL}/api/pdf/${orderId}/invoice`, { method: 'HEAD' })
+    const lang = window.getAppLanguage();
+
+    fetch(`${API_URL}/api/pdf/${orderId}/invoice?lang=${lang}`, { method: 'HEAD' })
       .then(res => {
         if (!res.ok) throw new Error('PDF недоступний');
         setLoading(false);
