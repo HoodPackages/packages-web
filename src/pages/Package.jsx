@@ -24,15 +24,13 @@ export default function Package() {
     const pack = packages.find((p) => p._id === id);
 
     useEffect(() => {
-        if (!pack) return; // если pack нет, ничего не делаем
+        if (!pack) return;
 
-        // обновляем quantity
         if (Array.isArray(pack.price) && pack.price.length > 0) {
             const minQty = Math.min(...pack.price.map((p) => p.minQty));
             setQuantity(minQty);
         }
 
-        // обновляем title
         document.title = pack.name;
     }, [pack]);
 
