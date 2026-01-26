@@ -22,7 +22,6 @@ export default function Package() {
     const discount = useAuthStore(state => state.user?.discount || 0);
 
     const pack = packages.find((p) => p._id === id);
-    window.scroll(0, 0);
 
     useEffect(() => {
         if (pack && Array.isArray(pack.price) && pack.price.length > 0) {
@@ -41,6 +40,8 @@ export default function Package() {
     };
 
     if (loading) {
+        window.scroll(0, 0);
+
         return (
             <div className="flex justify-center items-center h-[50vh]">
                 <FaSpinner className="animate-spin text-indigo-600 text-4xl" />
