@@ -71,7 +71,7 @@ export default function Header() {
                   <li key={idx}>
                     {
                       item.isDropdown ? (
-                        <button className="w-full flex items-center justify-between gap-1 font-medium text-gray-700 hover:text-yellow-400"
+                        <button className="w-full flex items-center justify-between gap-1 font-medium text-gray-700 hover:text-yellow-400 cursor-pointer"
                           onClick={() =>
                             setDropDownState(prev =>
                               prev.idx === idx && prev.isActive
