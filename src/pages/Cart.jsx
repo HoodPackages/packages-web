@@ -69,7 +69,7 @@ export default function Cart() {
               </div>
               <button
                 onClick={() => removeFromCart(item._id)}
-                className="text-red-500 hover:text-red-700 ml-6 text-2xl transition-colors"
+                className="text-red-500 hover:text-red-700 ml-6 text-2xl transition-colors cursor-pointer"
                 aria-label="Видалити товар"
               >
                 &times;
@@ -107,7 +107,7 @@ export default function Cart() {
 
           <button
             onClick={clearCart}
-            className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-xl font-semibold transition-colors"
+            className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-xl font-semibold transition-colors cursor-pointer"
           >
             Очистити кошик
           </button>

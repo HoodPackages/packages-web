@@ -10,12 +10,12 @@ const pantoneColors = [
   { name: "Sailor Blue", pantone: "19-4035", hex: "#1D3C6A", group: "blue" },
   { name: "Blue Bell", pantone: "15-3817", hex: "#A3A6C1", group: "blue" },
 
-  { name: "Living Coral", pantone: "16-1546", hex: "#FF6F61", group: "red_orange" },
-  { name: "Marsala", pantone: "18-1438", hex: "#955251", group: "red_orange" },
-  { name: "Tangerine Tango", pantone: "17-1463", hex: "#DD4124", group: "red_orange" },
-  { name: "Fiesta", pantone: "17-1564", hex: "#CE352C", group: "red_orange" },
-  { name: "Fuchsia Red", pantone: "18-2436", hex: "#B6316C", group: "red_orange" },
-  { name: "Flame Scarlet", pantone: "17-1462", hex: "#E03C31", group: "red_orange" },
+  { name: "Living Coral", pantone: "16-1546", hex: "#FF6F61", group: "red orange" },
+  { name: "Marsala", pantone: "18-1438", hex: "#955251", group: "red orange" },
+  { name: "Tangerine Tango", pantone: "17-1463", hex: "#DD4124", group: "red orange" },
+  { name: "Fiesta", pantone: "17-1564", hex: "#CE352C", group: "red orange" },
+  { name: "Fuchsia Red", pantone: "18-2436", hex: "#B6316C", group: "red orange" },
+  { name: "Flame Scarlet", pantone: "17-1462", hex: "#E03C31", group: "red orange" },
 
   { name: "Ultra Violet", pantone: "18-3838", hex: "#5F4B8B", group: "violet" },
   { name: "Radiant Orchid", pantone: "18-3224", hex: "#B565A7", group: "violet" },
@@ -52,18 +52,18 @@ const pantoneColors = [
   { name: "Aquamarine", pantone: "14-4810", hex: "#7FFFD4", group: "turquoise" },
   { name: "Blue Atoll", pantone: "16-5123", hex: "#4ECDC4", group: "turquoise" },
 
-  { name: "Peach Echo", pantone: "16-1548", hex: "#F88379", group: "red_orange" },
+  { name: "Peach Echo", pantone: "16-1548", hex: "#F88379", group: "red orange" },
   { name: "Dove Gray", pantone: "14-4102", hex: "#D6D6D1", group: "gray" },
   { name: "Rose Quartz", pantone: "13-1520", hex: "#F7CAC9", group: "pink" },
   { name: "Serenity", pantone: "15-3919", hex: "#92A8D1", group: "blue" },
   { name: "Sand", pantone: "14-1116", hex: "#DECDBE", group: "brown" },
   { name: "Spice Route", pantone: "19-1337", hex: "#8B5E3C", group: "brown" },
   { name: "Peacock Blue", pantone: "19-4534", hex: "#006A70", group: "blue" },
-  { name: "Coral Rose", pantone: "16-1526", hex: "#FF6F61", group: "red_orange" },
-  { name: "Sunset Orange", pantone: "17-1463", hex: "#FD5E53", group: "red_orange" },
+  { name: "Coral Rose", pantone: "16-1526", hex: "#FF6F61", group: "red orange" },
+  { name: "Sunset Orange", pantone: "17-1463", hex: "#FD5E53", group: "red orange" },
   { name: "Placid Blue", pantone: "14-4318", hex: "#A7C6ED", group: "blue" },
   { name: "Chocolate Brown", pantone: "19-1014", hex: "#381819", group: "brown" },
-  { name: "Dusty Cedar", pantone: "18-1630", hex: "#AD5D5D", group: "red_orange" },
+  { name: "Dusty Cedar", pantone: "18-1630", hex: "#AD5D5D", group: "red orange" },
   { name: "Peach Bud", pantone: "14-1228", hex: "#F8DBCA", group: "yellow" },
   { name: "Golden Glow", pantone: "14-1050", hex: "#FCC200", group: "yellow" }
 ];
@@ -140,11 +140,11 @@ export default function PantonePage() {
                 >
                   <button
                     onClick={() => toggleGroup(group)}
-                    className="flex justify-between items-center w-full font-semibold text-lg text-indigo-700 hover:text-indigo-900 transition"
+                    className="flex justify-between items-center w-full font-semibold text-lg text-indigo-700 hover:text-indigo-900 transition cursor-pointer"
                     aria-expanded={isExpanded}
                     aria-controls={`${group}-colors`}
                   >
-                    <span>
+                    <span className="gtranslate">
                       {group.charAt(0).toUpperCase() + group.slice(1)} ({colors.length})
                     </span>
                     <span className="text-xl select-none">
@@ -165,7 +165,7 @@ export default function PantonePage() {
                           <div
                             className="h-40"
                             style={{ backgroundColor: color.hex }}
-                            aria-label={`${color.name}, Pantone ${color.pantone}`} // <--------- на всякий
+                            aria-label={`${color.name}, Pantone ${color.pantone}`}
                           ></div>
 
                           <div className="p-4 bg-white flex flex-col items-center">
@@ -182,7 +182,7 @@ export default function PantonePage() {
                             <button
                               onClick={() => handleCopy(color.hex)}
                               className="mt-3 flex items-center space-x-1 text-indigo-600 hover:text-indigo-800 text-sm font-semibold select-none"
-                              aria-label={`Скопіювати HEX ${color.hex}`}
+                              aria-label={`Copy HEX ${color.hex}`}
                               type="button"
                             >
                               {copied === color.hex ? (

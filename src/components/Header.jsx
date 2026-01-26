@@ -101,7 +101,7 @@ export default function Header() {
                     }
 
                     {item.isDropdown && dropdownState.idx === idx && dropdownState.isActive && (
-                      <div className="mt-6 inset-x-0 top-20 max-w-5xl mx-auto md:absolute md:mt-4 z-50 rounded-2xl overflow-hidden shadow-lg bg-white">
+                      <div className="mt-6 inset-x-0 top-20 max-w-6xl mx-auto md:absolute md:mt-4 z-50 rounded-2xl overflow-hidden shadow-lg bg-white">
                         <ul className="bg-white rounded-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
                           {[...new Map(packages.map(p => [p.category, p])).values()].map((catItem) => (
                             <li key={item._id} className="group">
@@ -112,7 +112,7 @@ export default function Header() {
                                   setDropDownState({ isActive: false, idx: null })
                                 }
                               >
-                                <div className="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center duration-150 group-hover:bg-yellow-400 group-hover:text-white md:w-14 md:h-14">
+                                <div className="w-13 h-12 rounded-full bg-indigo-50 flex items-center justify-center duration-150 group-hover:bg-yellow-400 group-hover:text-white md:w-14 md:h-14">
                                   <Package size={20} />
                                 </div>
                                 <div>

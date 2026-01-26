@@ -179,14 +179,14 @@ export default function PaymentPage() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={handleFinishOrder}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto"
+            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto cursor-pointer"
           >
             Завершити замовлення
           </button>
 
           <button
             onClick={handlePaymentFailure}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-8 rounded-lg transition w-full sm:w-auto cursor-pointer"
           >
             Відмінити
           </button>

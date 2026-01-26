@@ -72,7 +72,7 @@ export default function OrderSuccessPage() {
 
         <button
           onClick={() => navigate('/cart')}
-          className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition mt-4"
+          className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition mt-4 cursor-pointer"
         >
           Повернутись до магазину
         </button>

@@ -82,7 +82,7 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 rounded-lg shadow-md transition"
+            className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-3 rounded-lg shadow-md transition cursor-pointer"
           >
             Продовжити до оплати
           </button>
@@ -90,7 +90,7 @@ export default function CheckoutPage() {
 
         <button
           onClick={() => navigate('/cart')}
-          className="mt-6 w-full text-yellow-600 hover:text-yellow-700 font-medium"
+          className="mt-6 w-full text-yellow-600 hover:text-yellow-700 font-medium cursor-pointer"
         >
           ← Назад до кошика
         </button>

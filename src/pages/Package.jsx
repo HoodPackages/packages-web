@@ -128,8 +128,8 @@ export default function Package() {
                                 <button
                                     onClick={() => setSelectedOption("")}
                                     className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === ""
-                                        ? "bg-indigo-600 text-white border-indigo-600"
-                                        : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+                                        ? "bg-indigo-600 text-white border-indigo-600 cursor-pointer"
+                                        : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400 cursor-pointer"
                                         }`}
                                 >
                                     Без друку
@@ -140,8 +140,8 @@ export default function Package() {
                                         key={code}
                                         onClick={() => setSelectedOption(code)}
                                         className={`px-5 py-2.5 rounded-full border transition-all duration-200 shadow-sm text-sm font-medium ${selectedOption === code
-                                            ? "bg-indigo-600 text-white border-indigo-600"
-                                            : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400"
+                                            ? "bg-indigo-600 text-white border-indigo-600 cursor-pointer"
+                                            : "bg-white text-gray-800 border-gray-300 hover:border-indigo-400 cursor-pointer"
                                             }`}
                                     >
                                         {code}
@@ -190,7 +190,7 @@ export default function Package() {
                         {/* BUTTON */}
                         <button
                             onClick={handleAddToCart}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all"
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all cursor-pointer"
                         >
                             Додати в кошик — {totalPrice} грн
                         </button>

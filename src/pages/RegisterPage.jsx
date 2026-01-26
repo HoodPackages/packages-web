@@ -138,7 +138,7 @@ export default function RegisterPage() {
             className="
               w-full rounded-lg bg-black text-white py-2.5 font-medium
               hover:bg-yellow-400 hover:text-black
-              transition-colors
+              transition-colors cursor-pointer
             "
           >
             {loading ? "Зачекайте…" : "Зареєструватися"}

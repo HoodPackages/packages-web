@@ -94,7 +94,7 @@ export default function ProfilePage() {
 
                 <button
                     onClick={handleLogout}
-                    className="w-full mt-6 rounded-lg bg-black text-white py-2.5 font-medium hover:bg-yellow-400 hover:text-black transition-colors"
+                    className="w-full mt-6 rounded-lg bg-black text-white py-2.5 font-medium hover:bg-yellow-400 hover:text-black transition-colors cursor-pointer"
                 >
                     Вийти
                 </button>

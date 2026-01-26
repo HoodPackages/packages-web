@@ -143,7 +143,7 @@ const ContactUs = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full rounded border border-primary bg-primary p-3 transition hover:bg-opacity-90"
+                    className="w-full rounded border border-primary bg-primary p-3 transition hover:bg-opacity-90 cursor-pointer"
                     disabled={loading}
                   >
                     {loading ? "Надсилання..." : "Відправити"}
