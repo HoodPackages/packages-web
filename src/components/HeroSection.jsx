@@ -58,7 +58,7 @@ export default function HeroSection() {
 
 
                             <p className="mt-5 text-gray-600">
-                                Ознайомитись з типами оплати:
+                                Ознайомитись з типами оплати:{" "}
                                 <Link to="payments" className="text-yellow-400 hover:underline">
                                     Оплата
                                 </Link>
