@@ -16,7 +16,7 @@ export default function Cart() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-yellow-50">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-white">
         <img
           src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
           alt="Порожній кошик"
@@ -43,7 +43,7 @@ export default function Cart() {
   }, 0);
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-yellow-50">
+    <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-white">
       <h1 className="text-4xl font-extrabold text-yellow-600 mb-10 text-center">🛒 Ваш кошик</h1>
 
       <div className="grid gap-8 md:grid-cols-3">
