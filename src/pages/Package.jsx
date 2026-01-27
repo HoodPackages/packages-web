@@ -18,6 +18,10 @@ export default function Package() {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const addToCart = useCartStore((state) => state.addToCart);
 
+    const [totalPrice, setTotalPrice] = useState("0.00");
+
+    const [lang, setLang] = useState(window.getAppLanguage());
+
     const isAuth = useAuthStore(state => state.isAuth);
     const discount = useAuthStore(state => state.user?.discount || 0);
 
@@ -34,32 +38,28 @@ export default function Package() {
         document.title = pack.name;
     }, [pack]);
 
-    if (loading) {
-        window.scroll(0, 0);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const currentLang = window.getAppLanguage();
+            if (currentLang !== lang) {
+                setLang(currentLang); // форсируем перерисовку
+            }
+        }, 500);
 
-        return (
-            <div className="flex justify-center items-center h-[50vh]">
-                <FaSpinner className="animate-spin text-indigo-600 text-4xl" />
-            </div>
-        );
-    }
-
-    if (!pack) {
-        return (
-            <div className="flex justify-center items-center h-[50vh] text-gray-600 text-lg font-medium">
-                Пакет не знайдено
-            </div>
-        );
-    }
+        return () => clearInterval(interval);
+    }, [lang]);
 
     const getBaseUnitPrice = () => {
-        if (!Array.isArray(pack.price) || pack.price.length === 0) return 0;
+        if (!pack || !Array.isArray(pack.price) || pack.price.length === 0) return 0;
+
         const sorted = [...pack.price].sort((a, b) => b.minQty - a.minQty);
         const level = sorted.find((p) => quantity >= p.minQty) || sorted[sorted.length - 1];
         return Number(level.price);
     };
 
     const getUnitPrice = () => {
+        if (!pack) return 0;
+
         const basePrice = getBaseUnitPrice();
 
         let printPrice = 0;
@@ -81,7 +81,13 @@ export default function Package() {
         return discountedPrice;
     };
 
-    const totalPrice = (getUnitPrice() * quantity).toFixed(2);
+
+    useEffect(() => {
+        if (!pack) return;
+        setTotalPrice((getUnitPrice() * quantity).toFixed(2));
+    }, [quantity, selectedOption, isAuth, discount, lang, pack]);
+
+    // const totalPrice = (getUnitPrice() * quantity).toFixed(2);
 
     const handleAddToCart = () => {
         addToCart({
@@ -93,6 +99,24 @@ export default function Package() {
             discount: isAuth ? discount : 0
         });
     };
+
+    if (loading) {
+        window.scroll(0, 0);
+
+        return (
+            <div className="flex justify-center items-center h-[50vh]">
+                <FaSpinner className="animate-spin text-indigo-600 text-4xl" />
+            </div>
+        );
+    }
+
+    if (!pack) {
+        return (
+            <div className="flex justify-center items-center h-[50vh] text-gray-600 text-lg font-medium">
+                Пакет не знайдено
+            </div>
+        );
+    }
 
     return (
         <section className="py-12 lg:py-20 relative bg-gradient-to-b from-gray-50 to-white">
