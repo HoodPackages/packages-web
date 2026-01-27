@@ -21,6 +21,8 @@ export default function Package() {
     const [totalPrice, setTotalPrice] = useState("0.00");
 
     const [lang, setLang] = useState(window.getAppLanguage());
+    const [forceUpdate, setForceUpdate] = useState(0);
+
 
     const isAuth = useAuthStore(state => state.isAuth);
     const discount = useAuthStore(state => state.user?.discount || 0);
@@ -42,9 +44,10 @@ export default function Package() {
         const interval = setInterval(() => {
             const currentLang = window.getAppLanguage();
             if (currentLang !== lang) {
-                setLang(currentLang); // форсируем перерисовку
+                setLang(currentLang);
+                setForceUpdate((v) => v + 1); // форсируем перерендер
             }
-        }, 500);
+        }, 300);
 
         return () => clearInterval(interval);
     }, [lang]);
@@ -85,7 +88,7 @@ export default function Package() {
     useEffect(() => {
         if (!pack) return;
         setTotalPrice((getUnitPrice() * quantity).toFixed(2));
-    }, [quantity, selectedOption, isAuth, discount, lang, pack]);
+    }, [quantity, selectedOption, isAuth, discount, pack, forceUpdate]);
 
     // const totalPrice = (getUnitPrice() * quantity).toFixed(2);
 
