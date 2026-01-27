@@ -4,6 +4,7 @@ import { useCartStore } from '../../store/cartStore';
 import { API_URL } from '../data/config';
 
 export default function OrderSuccessPage() {
+  document.title = "Успішне замовлення"
   const navigate = useNavigate();
   const location = useLocation();
   const clearCart = useCartStore(state => state.clearCart);

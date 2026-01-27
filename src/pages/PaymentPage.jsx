@@ -17,6 +17,7 @@ export default function PaymentPage() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   async function handleFinishOrder() {
+    document.title = "Підтвердження замовлення"
     setLoading(true);
     setError(null);
 
@@ -53,7 +54,7 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 to-white px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-8">
       <div className="bg-white rounded-3xl shadow-lg w-full max-w-3xl p-6 sm:p-8">
         <h1 className="text-3xl font-bold text-yellow-600 mb-6 text-center">
           Підтвердження замовлення

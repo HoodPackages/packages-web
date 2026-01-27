@@ -143,7 +143,7 @@ const ContactUs = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full rounded border border-primary bg-primary p-3 transition hover:bg-opacity-90 cursor-pointer"
+                    className="w-full rounded border border-primary bg-primary p-3 transition hover:border-yellow-400 cursor-pointer"
                     disabled={loading}
                   >
                     {loading ? "Надсилання..." : "Відправити"}
@@ -171,7 +171,7 @@ const ContactTextArea = ({ row, placeholder, name, value, onChange }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full resize-none rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-dark dark:text-dark-6"
+      className="w-full resize-none rounded border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
     />
   </div>
 );
@@ -184,7 +184,7 @@ const ContactInputBox = ({ type, placeholder, name, value, onChange }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full rounded border border-stroke px-[14px] py-3 text-base text-body-color outline-none focus:border-primary dark:border-dark-3 dark:bg-dark dark:text-dark-6"
+      className="w-full rounded border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
     />
   </div>
 );

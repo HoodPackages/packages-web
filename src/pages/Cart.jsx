@@ -2,6 +2,7 @@ import { useCartStore } from "../../store/cartStore";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
+  document.title = "Ваш кошик";
   const {
     cart,
     removeFromCart,

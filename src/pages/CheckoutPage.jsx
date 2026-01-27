@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutPage() {
+  document.title = "Ваші дані"
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -48,14 +49,14 @@ export default function CheckoutPage() {
             placeholder="Ім'я та прізвище"
             value={form.name}
             onChange={handleChange}
-            className="border border-yellow-300 rounded-lg px-4 py-3 placeholder-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+            className="border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
           />
           <input
             name="phone"
             placeholder="Телефон (наприклад: 380xxxxxxxxx)"
             value={form.phone}
             onChange={handleChange}
-            className="border border-yellow-300 rounded-lg px-4 py-3 placeholder-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+            className="border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
           />
           <input
             name="email"
@@ -63,21 +64,21 @@ export default function CheckoutPage() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="border border-yellow-300 rounded-lg px-4 py-3 placeholder-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+            className="border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
           />
           <input
             name="city"
             placeholder="Місто"
             value={form.city}
             onChange={handleChange}
-            className="border border-yellow-300 rounded-lg px-4 py-3 placeholder-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+            className="border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
           />
           <input
             name="branch"
             placeholder="Номер відділення Нової Пошти"
             value={form.branch}
             onChange={handleChange}
-            className="border border-yellow-300 rounded-lg px-4 py-3 placeholder-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+            className="border border-gray-300 rounded-xl p-4 focus:outline-none focus:border-yellow-400"
           />
 
           <button
