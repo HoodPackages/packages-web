@@ -13,22 +13,18 @@
   <div class="gtranslate_wrapper"></div>
   <script>
     (function () {
-      // Список поддерживаемых языков
-      const supportedLanguages = ["en", "de", "uk", "fr", "it"];
+      const supportedLanguages = ["uk", "en", "de", "fr", "it"];
 
-      // Определяем язык браузера
-      let browserLang = navigator.language || navigator.userLanguage; // например "uk-UA"
-      browserLang = browserLang.slice(0, 2).toLowerCase(); // оставляем только первые две буквы
+      let browserLang = navigator.language || navigator.userLanguage;
+      browserLang = browserLang.slice(0, 2).toLowerCase();
 
-      // Если язык не поддерживается, выбираем английский
       if (!supportedLanguages.includes(browserLang)) {
         browserLang = "en";
       }
 
-      // Настройки GTranslate
       window.gtranslateSettings = {
         default_language: "uk",
-        detect_browser_language: false, // отключаем автоопределение GTranslate, мы сами определяем
+        detect_browser_language: false,
         languages: supportedLanguages,
         wrapper_selector: ".gtranslate_wrapper"
       };
@@ -64,7 +60,7 @@
 
   <script>
     (function () {
-      const HOME_TITLE = 'Кульок';
+      const HOME_TITLE = 'Головна';
       let observer = null;
 
       function isHomePage() {

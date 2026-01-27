@@ -88,9 +88,9 @@ export default function PaymentPage() {
                 >
                   <td className="p-3 font-medium text-gray-800">{item.name}</td>
                   <td className="p-3 text-center">{item.quantity}</td>
-                  <td className="p-3 text-center">{item.price}₴</td>
+                  <td className="p-3 text-center">{item.price}CHF</td>
                   <td className="p-3 text-center font-semibold text-yellow-600">
-                    {(item.price * item.quantity).toFixed(2)}₴
+                    {(item.price * item.quantity).toFixed(2)}CHF
                   </td>
                 </tr>
               ))}
@@ -101,7 +101,7 @@ export default function PaymentPage() {
                   Разом:
                 </td>
                 <td className="p-3 text-center font-bold text-lg text-yellow-700">
-                  {total.toFixed(2)}₴
+                  {total.toFixed(2)}CHF
                 </td>
               </tr>
             </tfoot>

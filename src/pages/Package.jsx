@@ -195,13 +195,13 @@ export default function Package() {
                             Ціна за штуку:{" "}
                             {isAuth && discount > 0 ? (
                                 <>
-                                    <span>{getUnitPrice().toFixed(2)} грн</span>
+                                    <span>{getUnitPrice().toFixed(2)} CHF</span>
                                     <span className="ml-2 text-sm text-gray-500 line-through">
-                                        {(getBaseUnitPrice() + (selectedOption ? pack.printOptions.find(p => p.code === selectedOption)?.price || 0 : 0)).toFixed(2)} грн
+                                        {(getBaseUnitPrice() + (selectedOption ? pack.printOptions.find(p => p.code === selectedOption)?.price || 0 : 0)).toFixed(2)} CHF
                                     </span>
                                 </>
                             ) : (
-                                <span>{getUnitPrice().toFixed(2)} грн</span>
+                                <span>{getUnitPrice().toFixed(2)} CHF</span>
                             )}
                         </div>
 
@@ -210,7 +210,7 @@ export default function Package() {
                             onClick={handleAddToCart}
                             className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500 text-white font-semibold text-lg shadow-md hover:from-yellow-500 hover:to-yellow-600 transition-all cursor-pointer"
                         >
-                            Додати в кошик — {totalPrice} грн
+                            Додати в кошик — {totalPrice} CHF
                         </button>
                     </div>
 

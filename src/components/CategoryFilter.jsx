@@ -6,6 +6,7 @@ import { usePackages } from "../data/usePackages";
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronDownIcon, MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { all } from 'axios';
 
 const sortOptions = [
     { name: 'За замовчуванням', current: true },
@@ -131,8 +132,6 @@ export default function CategoryFilter() {
 
     const [currentSort, setCurrentSort] = useState(sortOptions[0].name);
 
-    
-
     const sortPackages = (packagesList) => {
         switch (currentSort) {
             case 'Найновіші':
@@ -167,6 +166,7 @@ export default function CategoryFilter() {
     const filters = useMemo(() => {
         const packagesInCategory = packages.filter(pkg => pkg.category === categoryName);
         const allFilters = generateFiltersFromPackages(packagesInCategory);
+        document.title = categoryName;
         return allFilters.filter(f => f.id !== 'category');
     }, [packages, categoryName, subCategoryName]);
 

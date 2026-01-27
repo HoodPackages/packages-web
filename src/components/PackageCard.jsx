@@ -64,15 +64,15 @@ export default function PackageCard({ pack }) {
               {isAuth ? (
                 <>
                   <span className="text-2xl font-bold text-slate-900">
-                    {discountedPrice} грн
+                    {discountedPrice} CHF
                   </span>
                   <span className="ml-2 text-sm text-slate-500 line-through">
-                    {basePrice} грн
+                    {basePrice} CHF
                   </span>
                 </>
               ) : (
                 <span className="text-2xl font-bold text-slate-900">
-                  {basePrice} грн
+                  {basePrice} CHF
                 </span>
               )}
             </p>
